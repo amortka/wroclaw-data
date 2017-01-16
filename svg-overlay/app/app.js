@@ -100,10 +100,6 @@ function drawMap(data) {
                 .attr('class', 'hexbinGroup')
         }
 
-        // console.log('hexbinBeans', hexbinBeans.slice(0,10).sort((a,b) => {
-        //  return (b.x - a.x) && (b.y - a.y);
-        //  }));
-
         let hex = hexbinGroup.selectAll('.hexagon');
 
         hex.data(hexbinBeans).exit().remove();
@@ -123,7 +119,7 @@ function drawMap(data) {
                 });
                 return cscale(avg);
             })
-            .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)))
+            .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)));
 
         hex.data(hexbinBeans)
             .enter()
@@ -148,19 +144,10 @@ function drawMap(data) {
             })
             .ease(d3.easeQuadInOut)
             .attr('opacity', 1)
-            .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)))
-            /*.attr('transform', function(d) {
-                return 'translate(' + d.x + ',' + d.y + ')';
-            });*/
-
-        console.log('hexbinBeans array #', hexbinBeans.length);
-        console.log('hexbinBeans real  #', hexbinGroup.selectAll('.hexagon').size());
-
-
+            .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)));
     });
     overlay.addTo(leafletMap);
 }
-
 
 function getRandom(lat, lng, d) {
     return {
