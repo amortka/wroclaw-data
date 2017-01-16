@@ -77,14 +77,12 @@ function drawMap(data) {
         let zoom = projection.getZoom();
         let c = projection.latLngToLayerPoint(projection.map.getCenter());
 
-        let hexbinGroupZoomAll = selection.selectAll('.hexbinGroup');
-        hexbinGroupZoomAll.style('display', 'none');
-
-
-        let hexbinGroupZoom = selection.select('g.hexbinGroup-z' + zoom);
+        let hexbinGroup = selection.select('g.hexbinGroup');
         let hexbinsData = parseData(data).map(d => {
             let p = projection.latLngToLayerPoint(d);
             return [p.x, p.y, {rate: d.rate}]
+        }).sort((a, b) => {
+            return a.x - b.x || a.y - b.y
         });
 
         let hexbinLayout = hexbin().radius(15 / projection.scale);
@@ -96,19 +94,43 @@ function drawMap(data) {
         });
         hexbinScale.domain([0, d3.mean(count) + d3.deviation(count) * 10]);
 
-        if (hexbinGroupZoom.empty()) {
-            hexbinGroupZoom = selection.append('g')
-                .attr('class', 'hexbinGroup hexbinGroup-z' + zoom)
-        } else {
-            hexbinGroupZoom.style('display', 'block');
+        if (hexbinGroup.empty()) {
+            console.log('creating group');
+            hexbinGroup = selection.append('g')
+                .attr('class', 'hexbinGroup')
         }
 
-        let hexagons = hexbinGroupZoom.selectAll('.hexagon').data(hexbinBeans)
+        // console.log('hexbinBeans', hexbinBeans.slice(0,10).sort((a,b) => {
+        //  return (b.x - a.x) && (b.y - a.y);
+        //  }));
+
+        let hex = hexbinGroup.selectAll('.hexagon');
+
+        hex.data(hexbinBeans).exit().remove();
+
+        hex.data(hexbinBeans)
+            .attr('transform', function(d) {
+                return 'translate(' + d.x + ',' + d.y + ')';
+            })
+            .transition()
+            .duration(250)
+            .ease(d3.easeQuadInOut)
+            .attr('stroke', 'black')
+            .attr('stroke-width', 1 / projection.scale)
+            .attr('fill', function(d) {
+                var avg = d3.mean(d, function(d) {
+                    return +d[2].rate;
+                });
+                return cscale(avg);
+            })
+            .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)))
+
+        hex.data(hexbinBeans)
             .enter()
             .append('path')
             .attr('class', 'hexagon')
-            .attr('transform', function(d, idx) {
-                return 'translate(' + d.x + ',' + d.y + ') rotate(90)';
+            .attr('transform', function(d) {
+                return 'translate(' + d.x + ',' + d.y + ')';
             })
             .attr('stroke', 'black')
             .attr('stroke-width', 1 / projection.scale)
@@ -118,19 +140,21 @@ function drawMap(data) {
                 });
                 return cscale(avg);
             })
-            .attr('d', function() {
-                return hexbinLayout.hexagon(1);
-            })
+            .attr('opacity', 0)
             .transition()
             .duration(500)
             .delay((d) => {
-                return Math.floor(Math.sqrt( (d.x-c.x)*(d.x-c.x) + (d.y-c.y)*(d.y-c.y) ));
-             })
+                return Math.floor(Math.sqrt((d.x - c.x) * (d.x - c.x) + (d.y - c.y) * (d.y - c.y)));
+            })
+            .ease(d3.easeQuadInOut)
+            .attr('opacity', 1)
             .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)))
-            .attr('transform', function(d) {
+            /*.attr('transform', function(d) {
                 return 'translate(' + d.x + ',' + d.y + ')';
-            });
+            });*/
 
+        console.log('hexbinBeans array #', hexbinBeans.length);
+        console.log('hexbinBeans real  #', hexbinGroup.selectAll('.hexagon').size());
 
 
     });
