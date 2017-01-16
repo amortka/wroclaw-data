@@ -1,14 +1,17 @@
-import d3 from 'd3';
+import * as d3 from 'd3';
 
-var d3_hexbinAngles = d3.range(0, 2 * Math.PI, Math.PI / 3),
-    d3_hexbinX = function(d) {
-        return d[0];
-    },
-    d3_hexbinY = function(d) {
-        return d[1];
-    };
+
+const d3_hexbinAngles = d3.range(0, 2 * Math.PI, Math.PI / 3);
+const d3_hexbinX = function(d) {
+    return d[0];
+};
+const d3_hexbinY = function(d) {
+    return d[1];
+};
+
 
 export default function() {
+
     var width = 1,
         height = 1,
         r,
@@ -111,5 +114,5 @@ export default function() {
     };
 
     return hexbin.radius(1);
-};
 
+}
