@@ -1,4 +1,5 @@
 'use strict';
+console.clear();
 
 import leaflet from 'leaflet';
 import _ from 'lodash';
@@ -28,11 +29,6 @@ const IGNORED_LATLON = [
     {lat: 51.1138, lon: 17.0412},
     {lat: 51.1079, lon: 17.0385}
 ];
-
-// generate some dummy points around xy
-for (let n = 0; n < 500; n++) {
-    coords.push(getRandom(51.10, 17.02, 100));
-}
 
 const tileLayer = L.tileLayer(TILE_URL.dark, {
     zoomOffset: 0,
@@ -74,7 +70,9 @@ function drawMap(data) {
 
     let overlay = L.d3SvgOverlay(function(selection, projection) {
 
-        let zoom = projection.getZoom();
+        const hexbinMinSize = 5 / projection.scale;
+        const hexbinMaxSize = 15 / projection.scale;
+
         let c = projection.latLngToLayerPoint(projection.map.getCenter());
 
         let hexbinGroup = selection.select('g.hexbinGroup');
@@ -85,10 +83,10 @@ function drawMap(data) {
             return a.x - b.x || a.y - b.y
         });
 
-        let hexbinLayout = hexbin().radius(15 / projection.scale);
+        let hexbinLayout = hexbin().radius(hexbinMaxSize);
         let hexbinBeans = hexbinLayout(hexbinsData);
 
-        let hexbinScale = d3.scaleSqrt().range([5 / projection.scale, 15 / projection.scale]).clamp(false);
+        let hexbinScale = d3.scaleSqrt().range([hexbinMinSize, hexbinMaxSize]).clamp(false);
         let count = hexbinBeans.map(function(d) {
             return d.length;
         });
@@ -109,8 +107,8 @@ function drawMap(data) {
                 return 'translate(' + d.x + ',' + d.y + ')';
             })
             .transition()
-            .duration(250)
-            .ease(d3.easeQuadInOut)
+            .duration(500)
+            .ease(d3.easeBounceOut)
             .attr('stroke', 'black')
             .attr('stroke-width', 1 / projection.scale)
             .attr('fill', function(d) {
@@ -119,14 +117,17 @@ function drawMap(data) {
                 });
                 return cscale(avg);
             })
+            .attr('opacity', 1)
             .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)));
+        // .attr('d', (d) => hexbinLayout.hexagon(hexbinMaxSize));
 
         hex.data(hexbinBeans)
             .enter()
             .append('path')
             .attr('class', 'hexagon')
             .attr('transform', function(d) {
-                return 'translate(' + d.x + ',' + d.y + ')';
+                let p = randomCirclePoint(d.x, d.y, 100);
+                return 'translate(' + p.x + ',' + p.y + ')';
             })
             .attr('stroke', 'black')
             .attr('stroke-width', 1 / projection.scale)
@@ -144,7 +145,52 @@ function drawMap(data) {
             })
             .ease(d3.easeQuadInOut)
             .attr('opacity', 1)
+            .attr('transform', function(d) {
+                return 'translate(' + d.x + ',' + d.y + ')';
+            })
             .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)));
+        // .attr('d', (d) => hexbinLayout.hexagon(hexbinMaxSize));
+
+
+        /*
+        let grid = hexbinBeans.map(d => ({
+            x: d.x.toPrecision(3),
+            y: d.y.toPrecision(3),
+            rate: d3.mean(d, function(d) {
+                return +d[2].rate;
+            })
+        }));
+
+        let bounds = [
+            [~~d3.min(_.map(grid, 'x')), ~~d3.min(_.map(grid, 'y'))],
+            [~~d3.max(_.map(grid, 'x')), ~~d3.max(_.map(grid, 'y'))]
+        ];
+
+        let voronoi = d3.voronoi()
+            .x(function(d) {
+                return d.x;
+            })
+            .y(function(d) {
+                return d.y;
+            })
+            .extent(bounds);
+
+        selection.selectAll('.voronoi').remove();
+
+        selection.selectAll('.voronoi')
+            .data(voronoi.polygons(grid))
+            .enter()
+            .append('path')
+            .attr('d', d => (d ? 'M' + d.join('L') + 'Z' : null))
+            .attr('fill', 'none')
+            // .attr('fill', function(d) {
+            //     return d && d.data ? cscale(d.data.rate) : 'null';
+            // })
+            .attr('class', 'voronoi')
+            .style('stroke-width', 0.5 / projection.scale)
+            .style('stroke-dasharray','2, 2')
+            .style('stroke', '#222');*/
+
     });
     overlay.addTo(leafletMap);
 }
@@ -169,4 +215,14 @@ function parseData(data) {
         })
         .uniqBy('id')
         .value();
+}
+
+function randomCirclePoint(x0, y0, radius) {
+    const u = Math.random();
+    const v = Math.random();
+    const theta = 2 * Math.PI * u;
+    const phi = Math.acos(2 * v - 1);
+    const x = x0 + (radius * Math.sin(phi) * Math.cos(theta));
+    const y = y0 + (radius * Math.sin(phi) * Math.sin(theta));
+    return {x, y};
 }
