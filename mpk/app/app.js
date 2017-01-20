@@ -128,6 +128,11 @@ function drawMap(data) {
                 return projection.latLngToLayerPoint(d).y;
             });
 
+        let cScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+        pointsUpdate
+            .attr('stroke-width', 2 / projection.scale);
+
         pointsUpdate.data(data)
             .enter()
             .append('path')
@@ -137,11 +142,11 @@ function drawMap(data) {
             .attr('fill', 'none')
             // .attr('stroke', '#e74c3c')
             .attr('stroke', (d, idx) => {
-                return 'red';
+                // return 'red';
                 return cScale(idx);
             })
             .attr('class', 'line')
-            .attr('stroke-width', 2)
+            .attr('stroke-width', 2 / projection.scale)
             .attr('opacity', 0.8)
             .style('pointer-events', 'visiblePainted');/*
             .on('mouseover', function() {

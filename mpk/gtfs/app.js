@@ -70,35 +70,13 @@ async.forEachOf(FILES, function(val, key, callback) {
         lines.push({
           id: group.key,
           stops: group.main
-        })
+        });
 
         cb();
     }, (err) => {
       console.log('processing done!');
       console.log(lines);
     });
-
-/*
-    let trip = _.find(tripGroups, {key: '134'});
-
-    trip.values = trip.values.map((trip) => {
-        let stops = _.filter(data.stopTimes, {
-            trip_id: trip.trip_id
-        });
-        trip.stops = stops;
-        trip.stops_count = stops.length;
-        return trip;
-    });
-
-    let mainTripCount = getMostFreq(_.map(trip.values, 'stops_count'));
-
-    trip.main = _.find(trip.values, {stops_count: parseInt(mainTripCount, 10)});
-
-    console.log('mainTripCount', mainTripCount);
-    console.log(trip.values.length);
-    console.log(trip.main);
-*/
-
 });
 
 function countOccurence(arr) {
