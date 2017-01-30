@@ -1,0 +1,10 @@
+@import '../node_modules/leaflet/dist/leaflet.css';
+body,
+html {
+    margin: 0;
+    height: 100vh;
+}
+img.leaflet-tile {
+    pointer-events: none;
+    opacity: 0.3;
+}

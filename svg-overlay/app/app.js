@@ -93,7 +93,6 @@ function drawMap(data) {
         hexbinScale.domain([0, d3.mean(count) + d3.deviation(count) * 10]);
 
         if (hexbinGroup.empty()) {
-            console.log('creating group');
             hexbinGroup = selection.append('g')
                 .attr('class', 'hexbinGroup')
         }

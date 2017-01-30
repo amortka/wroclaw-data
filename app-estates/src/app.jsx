@@ -1,20 +1,47 @@
-import styles from './index.scss';
 import React from 'react';
+import style from './app.scss';
 
-import Hello from './components/hello';
-import Text from './components/text';
-import Button from './components/button';
+import './index.global.scss';
+
+import {tsv} from 'd3';
+import HexbinMap from './components/HexbinMap';
+import FormLatLon from './components/FormLatLon';
+import {getRandomInDistance} from './common/geoUtils';
+
+const data = [];
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            latLon: null,
+            isDataLoaded: false,
+            data
+        }
+
+        this.onLatLonChange = this
+            .onLatLonChange
+            .bind(this);
+
+        this.loadData();
+    }
+
+    onLatLonChange(latLon) {
+        this.setState({latLon})
+    }
+
+    loadData() {
+        tsv('./gratka-full.tsv', (err, data) => {
+            this.setState({data})
+        })
+    }
+
     render() {
         return (
-            <div>
-                <h1>It Works!</h1>
-                <p>This React project just works including <span className={styles.redBg}>module</span> local styles.</p>
-                <Hello name="John"/>
-                <Text text="some dummy text"/>
-                <Button message="123"/>
-                <p>Enjoy!</p>
+            <div className={style.app}>
+                <FormLatLon onChange={this.onLatLonChange}></FormLatLon>
+                <HexbinMap center={this.state.latLon} data={this.state.data}/>
             </div>
         )
     }
