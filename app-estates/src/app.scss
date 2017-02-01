@@ -1,21 +1,24 @@
 :global {
     #app {
-        width: 100%;
-        height: 100%;
+        //width: 100%;
+        //height: 100%;
         display: flex;
         align-items: stretch;
         justify-content: stretch;
     }
 
 }
-.app,
-.app div {
+.app {
+    //height: 100%;
+    //width: 100%;
     display: flex;
     align-items: stretch;
     justify-content: stretch;
     flex: 1 1 auto;
 }
 .map {
+    //height: 100%;
+    //width: 100%;
     display: flex;
     align-items: stretch;
     justify-content: stretch;

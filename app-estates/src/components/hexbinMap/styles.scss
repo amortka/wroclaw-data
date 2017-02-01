@@ -1,9 +1,35 @@
 .mapContainer {
-    flex: 1 1 auto;
-    z-index: 10;
+  //flex: 1 1 auto;
+  z-index: 10;
 }
-
 
 .hexbinBin {
   cursor: pointer;
+}
+
+.hexbinDot {
+  fill: #2ecc71;
+  //filter: url(#blur-filter);
+}
+
+.hexbinFrame {
+  fill: none;
+  //stroke-width: 1px;
+  //stroke-dasharray: 10, 15;
+  stroke: #3498db;
+  animation: dash 2s linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.hexbinFrame--blur {
+  @extend .hexbinFrame;
+  stroke: #3498db;
+  filter: url(#blur-filter);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 100;
+  }
 }

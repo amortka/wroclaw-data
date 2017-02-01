@@ -28,7 +28,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './public',
-        noInfo: true,
+        // noInfo: true,
         // enable HMR
         hot: true,
         inline: true,
@@ -37,9 +37,9 @@ module.exports = {
         host: HOST
     },
     plugins: [
-        new webpack.NoErrorsPlugin(),
+        // new webpack.NoErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new DashboardPlugin(),
+        // new DashboardPlugin(),
         new HtmlWebpackPlugin({
             template: './src/template.html'
         }),
