@@ -1,31 +1,31 @@
 import React from 'react';
-
 import _ from 'lodash';
 import * as d3 from 'd3';
+
 import L from '../../common/leafletExtend/';
 import hexbin from '../../common/hexbin/';
-import {randomCirclePoint} from '../../common/geoUtils';
+import { randomCirclePoint } from '../../common/geoUtils';
 
 import style from './styles.scss';
 
 const URL = {
     mapbox: 'https://api.mapbox.com/styles/v1/amortka/cixvstzqi00152rql928bfsr2/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW1vcnRrYSIsImEiOiJjaW56azMwZW4wMHU0dnhseTJmdmd5MnNvIn0.ETjQqiTTrYueBpf8_aiOhg',
-    cartodb: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+    cartodb: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
 };
 
 const CONFIG = {
+    hexbinMaxSize: 20,
     hexbinMinSize: 5,
-    hexbinMaxSize: 20
 };
 
 const IGNORED_LATLON = [
     {
         lat: 51.1138,
-        lon: 17.0412
+        lon: 17.0412,
     }, {
         lat: 51.1079,
-        lon: 17.0385
-    }
+        lon: 17.0385,
+    },
 ];
 
 const cscale = d3
@@ -33,9 +33,9 @@ const cscale = d3
     .domain([4500, 6000, 8000])
     .range(['#43C660', '#43C6AC', '#FF6F00']);
 
-let config = {
+const config = {
     center: [
-        51.11, 17.022
+        51.11, 17.022,
     ],
     zoomControl: false,
     zoom: 13,
@@ -46,9 +46,9 @@ let config = {
     tileLayer: {
         uri: URL.mapbox,
         params: {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-        }
-    }
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        },
+    },
 };
 
 export default class Map extends React.Component {
@@ -59,17 +59,16 @@ export default class Map extends React.Component {
             map: null,
             titleLayer: null,
             geoData: null,
-            mounter: false
+            mounter: false,
         };
 
-        this._mapEl = null;
-        this._lockZoom = false;
-
+        this.mapEl = null;
+        this.lockZoom = false;
     }
 
     componentDidMount() {
         if (!this.state.map) {
-            this.init(this._mapEl);
+            this.init(this.mapEl);
         }
     }
 
@@ -93,11 +92,13 @@ export default class Map extends React.Component {
         if (this.state.map) {
             return;
         }
-        let map = L.map(el, config);
+        const map = L.map(el, config);
 
         L
             .control
-            .zoom({position: "bottomleft"})
+            .zoom({
+                position: 'bottomleft',
+            })
             .addTo(map);
 
         const tileLayer = L
@@ -105,54 +106,53 @@ export default class Map extends React.Component {
             .addTo(map);
 
         const overlayLayer = L.d3SvgOverlay((selection, projection) => {
+            const scale = this.lockZoom ? 1 : projection.scale;
+            const hexbinMinSize = CONFIG.hexbinMinSize / scale;
+            const hexbinMaxSize = CONFIG.hexbinMaxSize / scale;
 
-            const hexbinMinSize = CONFIG.hexbinMinSize / projection.scale;
-            const hexbinMaxSize = CONFIG.hexbinMaxSize / projection.scale;
-
-            let c = projection.latLngToLayerPoint(projection.map.getCenter());
+            const c = projection.latLngToLayerPoint(projection.map.getCenter());
 
             let hexbinInfoGroup = selection.select('g.hexbinInfoGroup');
             let hexbinGroup = selection.select('g.hexbinGroup');
             let defs = selection.select('defs');
 
-            let hexbinsData = parseData(this.props.data).map(d => {
-                let p = projection.latLngToLayerPoint(d);
+            const hexbinsData = parseData(this.props.data).map((d) => {
+                const p = projection.latLngToLayerPoint(d);
                 return [
                     p.x,
                     p.y, {
-                        rate: d.rate
-                    }
-                ]
-            }).sort((a, b) => {
-                return a.x - b.x || a.y - b.y
-            });
+                        lat: parseFloat(d.lat),
+                        lon: parseFloat(d.lon),
+                        rate: d.rate,
+                    },
+                ];
+            }).sort((a, b) => (a.x - b.x || a.y - b.y));
 
-            let hexbinLayout = hexbin().radius(hexbinMaxSize);
-            let hexbinBeans = hexbinLayout(hexbinsData);
+            const hexbinLayout = hexbin().radius(hexbinMaxSize);
+            const hexbinBeans = hexbinLayout(hexbinsData);
 
-            let hexbinScale = d3
+            const hexbinScale = d3
                 .scaleSqrt()
                 .range([hexbinMinSize, hexbinMaxSize])
                 .clamp(false);
 
-            let count = hexbinBeans.map(function(d) {
-                return d.length;
-            });
+            const count = hexbinBeans.map(d => d.length);
 
             hexbinScale.domain([
-                0, d3.mean(count) + d3.deviation(count) * 10
+                0,
+                d3.mean(count) + (d3.deviation(count) * 10),
             ]);
 
             if (hexbinGroup.empty()) {
                 hexbinGroup = selection
                     .append('g')
-                    .attr('class', 'hexbinGroup')
+                    .attr('class', 'hexbinGroup');
             }
 
             if (hexbinInfoGroup.empty()) {
                 hexbinInfoGroup = selection
                     .append('g')
-                    .attr('class', 'hexbinInfoGroup')
+                    .attr('class', 'hexbinInfoGroup');
             }
 
             if (defs.empty()) {
@@ -169,79 +169,72 @@ export default class Map extends React.Component {
                 .selectAll('.hexbinInfo')
                 .remove();
 
-            let hex = hexbinGroup
+            const hex = hexbinGroup
                 .selectAll('.hexagon')
-                .data(hexbinBeans, (d) => {
-                    return d.id;
-                });
+                .data(hexbinBeans, d => d.id);
 
             hex
                 .exit()
                 .remove();
 
-            hex.attr('transform', function(d) {
-                return 'translate(' + d.x + ',' + d.y + ')';
-            }).transition()
+            hex.attr('transform', d => `translate(${d.x},${d.y})`)
+                .transition()
                 .duration(500)
                 .ease(d3.easeBounceOut)
                 .attr('stroke', 'black')
-                .attr('stroke-width', 1 / projection.scale)
-                .attr('fill', function(d) {
-                    var avg = d3.mean(d, function(d) {
-                        return +d[2].rate;
-                    });
+                .attr('stroke-width', 1 / scale)
+                .attr('fill', (dd) => {
+                    const avg = d3.mean(dd, d => +d[2].rate);
                     return cscale(avg);
                 })
                 .attr('opacity', 1)
-                .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)));
+                .attr('d', d => hexbinLayout.hexagon(hexbinScale(d.length)));
 
             hex
                 .enter()
                 .append('path')
                 .attr('class', ['hexagon', style.hexbinBin].join(' '))
-                .attr('transform', function(d) {
-                    let p = randomCirclePoint(d.x, d.y, 100);
-                    return 'translate(' + p.x + ',' + p.y + ')';
+                .attr('transform', (d) => {
+                    const p = randomCirclePoint(d.x, d.y, 100);
+                    return `translate(${p.x},${p.y})`;
                 })
                 .attr('stroke', 'black')
-                .attr('stroke-width', 1 / projection.scale)
-                .attr('fill', function(d) {
-                    var avg = d3.mean(d, function(d) {
-                        return +d[2].rate;
-                    });
+                .attr('stroke-width', 1 / scale)
+                .attr('fill', (dd) => {
+                    const avg = d3.mean(dd, d => +d[2].rate);
                     return cscale(avg);
                 })
                 .attr('opacity', 0)
                 .style('pointer-events', 'visiblePainted')
-                // .on('mouseover', el => onHexbinMouseOver(el, hexbinInfoGroup, hexbinMaxSize, projection.scale)) //(el, hexbinInfoGroup, size, scale)
-                // .on('mouseout', el => onHexbinMouseOut(el, hexbinInfoGroup))
-                .on('click', el => onHexbinClick.call(this, el))
+// .on('mouseover',
+// el => onHexbinMouseOver(el, hexbinInfoGroup, hexbinMaxSize, scale)) // eslint-disable-line
+// .on('mouseout',
+// el => onHexbinMouseOut(el, hexbinInfoGroup)) // eslint-disable-line
+                .on('click', elClicked => onHexbinClick.call(this, elClicked))
                 .transition()
                 .duration(500)
-                .delay((d) => {
-                    return Math.floor(Math.sqrt((d.x - c.x) * (d.x - c.x) + (d.y - c.y) * (d.y - c.y)));
-                })
+                .delay(d =>
+                    Math.floor(Math.sqrt(
+                        ((d.x - c.x) * (d.x - c.x)) +
+                        ((d.y - c.y) * (d.y - c.y)))))
                 .ease(d3.easeQuadInOut)
                 .attr('opacity', 1)
-                .attr('transform', function(d) {
-                    return 'translate(' + d.x + ',' + d.y + ')';
-                })
-                .attr('d', (d) => hexbinLayout.hexagon(hexbinScale(d.length)));
-
+                .attr('transform', d => `translate(${d.x}, ${d.y})`)
+                .attr('d', d => hexbinLayout.hexagon(hexbinScale(d.length)));
         }).addTo(map);
 
         map.invalidateSize(true);
-        this.setState({map, tileLayer, overlayLayer});
+        this.setState({ map, tileLayer, overlayLayer });
     }
 
     render() {
         const mapStyle = {
-            height: this.props.height + 'px',
-            width: this.props.width + 'px'
+            height: `${this.props.height}px`,
+            width: `${this.props.width}px`,
         };
 
-        return ( <div id="mapContainer" ref={
-                (el) => this._mapEl = el
+        return (<div id="mapContainer" ref={
+                el => (this.mapEl = el)
             } className={style.mapContainer} style={mapStyle}></div>
         );
     }
@@ -249,52 +242,30 @@ export default class Map extends React.Component {
 
 function parseData(data) {
     return _.chain(data)
-        .filter(function(d) {
-            return !isNaN(parseFloat(d.price))
+        .filter(d => !isNaN(parseFloat(d.price))
                 && !isNaN(parseFloat(d.rate))
                 && !isNaN(parseFloat(d.lat))
                 && !isNaN(parseFloat(d.lon))
-                && !_.find(IGNORED_LATLON, function(dd) {
-                    return parseFloat(dd.lat).toFixed(2) === parseFloat(d.lat).toFixed(2) && parseFloat(dd.lon).toFixed(2) === parseFloat(d.lon).toFixed(2);
-                });
-        })
+                && !_.find(IGNORED_LATLON,
+            dd => parseFloat(dd.lat).toFixed(2) === parseFloat(d.lat).toFixed(2)
+                && parseFloat(dd.lon).toFixed(2) === parseFloat(d.lon).toFixed(2)))
         .uniqBy('id')
         .value();
 }
 
-function styleDash(selection, scale) {
-    debugger;
-    const width = 1 / scale;
-    const dash = [10 / scale, 15 / scale];
-
-    selection.style({
-        'stroke-width': width + 'px',
-        'stroke-dasharray': dash.join(', ')
-    });
-}
-
-function onHexbinMouseOut(el, hexbinInfoGroup) {
-    /*hexbinGroup
-     .selectAll('.hexagon')
-     .transition()
-     .attr('opacity', 1);*/
-
+/* function onHexbinMouseOut(el, hexbinInfoGroup) {
     hexbinInfoGroup
         .selectAll('*')
         .remove();
-}
+}*/
 
 function onHexbinClick(el) {
-    let zoom = this.state.map.getZoom();
-    this._lockZoom = !this._lockZoom;
+    const p = [el[0][2].lat, el[0][2].lon];
 
-    console.log('el', el);
-
-    //this.state.map.setZoomAround(latlon, zoom)
-    //console.log('this.map', this.state.map.getZoom());
-
+    this.lockZoom = true;
+    this.state.map.setView(p, 14);
 }
-
+/*eslint-disable */
 function onHexbinMouseOver(el, hexbinInfoGroup, size, scale) {
     if (el.length > 0) {
         let d3El = d3.select(this);
@@ -360,3 +331,4 @@ function onHexbinMouseOver(el, hexbinInfoGroup, size, scale) {
             .attr('cy', (d) => d.key.split(',')[1])
     }
 }
+/*eslint-enable */

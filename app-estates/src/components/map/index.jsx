@@ -35,12 +35,12 @@ export default class Map extends React.Component {
             geoData: null
         }
 
-        this._mapEl = null;
+        this.mapEl = null;
     }
 
     componentDidMount() {
         if (!this.state.map) {
-            this.init(this._mapEl);
+            this.init(this.mapEl);
         }
     }
 
@@ -75,7 +75,7 @@ export default class Map extends React.Component {
 
     render() {
         return (
-            <div id="mapContainer" ref={(el) => this._mapEl = el} className={style.mapContainer}></div>
+            <div id="mapContainer" ref={(el) => this.mapEl = el} className={style.mapContainer}></div>
         )
     }
 }

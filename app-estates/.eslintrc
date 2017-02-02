@@ -1,0 +1,32 @@
+{
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "airbnb-base",
+    "rules": {
+        "indent": [2, 4, {"SwitchCase": 1}],
+        "import/no-unresolved": 0,
+        "linebreak-style": ["error", "windows"],
+        "import/extensions": ["off", "never"],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "no-use-before-define": [2, { "functions": false }]
+    },
+    "settings": {
+        "import/parser": "babel-eslint",
+        "import/resolve": {
+            "moduleDirectory": ["node_modules", "src"]
+        }
+    },
+    "plugins": [
+        "react"
+    ]
+}

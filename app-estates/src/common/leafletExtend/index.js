@@ -33,7 +33,6 @@ L.D3SvgOverlay = (L.version < "1.0" ? L.Class : L.Layer)
 		draw: function() {
 			this._disableLeafletRounding();
 			this._drawCallback(this.selection, this.projection, this.map.getZoom());
-			console.log('size is', this.map.getSize());
 			this._enableLeafletRounding();
 		},
 
@@ -66,7 +65,6 @@ L.D3SvgOverlay = (L.version < "1.0" ? L.Class : L.Layer)
 		onAdd: function(map) {
 			this.map = map;
 			var _layer = this;
-			console.log('size is', map.getSize());
 
 			// SVG element
 			if (L.version < "1.0") {

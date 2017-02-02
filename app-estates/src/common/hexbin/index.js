@@ -22,6 +22,7 @@ export default function() {
 
     function hexbin(points) {
         var binsById = {};
+        var c = 0;
 
         points.forEach(function(point, i) {
             var py = y.call(hexbin, point, i) / dy, pj = Math.round(py),
@@ -44,6 +45,7 @@ export default function() {
                 bin.j = pj;
                 bin.x = (pi + (pj & 1 ? 1 / 2 : 0)) * dx;
                 bin.y = pj * dy;
+                bin.id = c++;
             }
         });
 
