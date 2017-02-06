@@ -8,8 +8,12 @@
 }
 
 .hexbinDot {
-  fill: #2ecc71;
+  // fill: #2ecc71;
+  cursor: pointer;
   //filter: url(#blur-filter);
+  &:hover {
+    animation: blink 0.5s linear infinite;
+  }
 }
 
 .hexbinFrame {
@@ -22,14 +26,34 @@
   animation-fill-mode: both;
 }
 
+.hexbinFrame--selected {
+  stroke: #f1c40f;
+}
+
 .hexbinFrame--blur {
   @extend .hexbinFrame;
   stroke: #3498db;
   filter: url(#blur-filter);
+  &.hexbinFrame--selected {
+    stroke: #f1c40f;
+  }
+}
+
+.tooltip {
+  fill: red;
 }
 
 @keyframes dash {
   to {
     stroke-dashoffset: 100;
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
