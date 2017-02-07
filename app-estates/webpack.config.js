@@ -27,7 +27,7 @@ module.exports = {
         /*preloaders: [
             { test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/ }
         ],*/
-        loaders
+        loaders,
     },
     devServer: {
         contentBase: './public',

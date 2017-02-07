@@ -14,11 +14,13 @@
     "rules": {
         "indent": [2, 4, {"SwitchCase": 1}],
         "import/no-unresolved": 0,
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": [2, "windows"],
         "import/extensions": ["off", "never"],
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "no-use-before-define": [2, { "functions": false }]
+        "no-use-before-define": [2, { "functions": false }],
+        "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+        "max-len": [2, 120]
     },
     "settings": {
         "import/parser": "babel-eslint",

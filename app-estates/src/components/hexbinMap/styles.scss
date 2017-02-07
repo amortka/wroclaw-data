@@ -1,6 +1,7 @@
 .mapContainer {
-  //flex: 1 1 auto;
+  position: relative;
   z-index: 10;
+  overflow: hidden;
 }
 
 .hexbinBin {
@@ -8,9 +9,7 @@
 }
 
 .hexbinDot {
-  // fill: #2ecc71;
   cursor: pointer;
-  //filter: url(#blur-filter);
   &:hover {
     animation: blink 0.5s linear infinite;
   }
@@ -18,8 +17,6 @@
 
 .hexbinFrame {
   fill: none;
-  //stroke-width: 1px;
-  //stroke-dasharray: 10, 15;
   stroke: #3498db;
   animation: dash 2s linear;
   animation-iteration-count: infinite;
@@ -40,7 +37,25 @@
 }
 
 .tooltip {
-  fill: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  background: #ecf0f1;
+  min-width: 100px;
+  min-height: 50px;
+  z-index: 100;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  line-height: 50px;
+  box-sizing: border-box;
+  font: {
+    size: 20px;
+    weight: 700;
+    family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  color: #2c3e50;
 }
 
 @keyframes dash {
