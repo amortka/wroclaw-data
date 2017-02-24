@@ -7,25 +7,22 @@ import async from 'async';
 
 console.log('-----------------------------------');
 const OPTIONS = process.argv.slice(2);
-const DIR = OPTIONS[0];
-const FILES = {
-    trips: 'trips.txt',
-    stops: 'stops.txt',
-    stopTimes: 'stop_times.txt'
-}
 
-if (!DIR) {
-    console.log('!! no directory');
-    process.exit(1);
-}
+const FILES = {
+    trips: 'trips.csv',
+    stops: 'stops.csv',
+    stopTimes: 'stop_times.csv',
+    variants: 'variants.csv'
+};
 
 let data = {};
-async.forEachOf(FILES, function(val, key, callback) {
-    console.log('---> started: ', val);
 
+async.eachOf(FILES, function(val, key, cb) {
     let rows = [];
+
+    console.log('---> started: ', val);
     csv
-        .fromPath(path.resolve('./' + DIR + '/' + val), {
+        .fromPath(path.resolve('../app/gtfs/' + val), {
             headers: true,
             ignoreEmpty: true
         })
@@ -35,58 +32,83 @@ async.forEachOf(FILES, function(val, key, callback) {
         .on('end', function() {
             console.log('-->> finished: ', val);
             data[key] = rows;
-            callback();
+            cb();
         });
 
-}, function(err) {
-    if (err) console.error(err.message);
+}, processData);
 
-    let lines = [];
+function processData(err) {
+    console.log('---- PROCESSING ....');
 
-    console.log('->>> all data loaded!');
+    if (err) {
+        console.log('ERROR:', err)
+    }
+
+    let {stops, trips, stopTimes, variants} = data;
+
+    stops = stops.map(s => ({
+        stop_id: s.stop_id,
+        stop_code: s.stop_code,
+        stop_name: s.stop_name,
+        lat: s.stop_lat,
+        lon: s.stop_lon
+    }));
+
+    let stopTimesGroup = d3.nest()
+        .key((trip) => {
+            return trip.trip_id;
+        })
+        .entries(stopTimes);
 
     let tripGroups = d3.nest()
         .key((trip) => {
             return trip.route_id;
         })
-        .entries(data.trips);
+        .entries(_.filter(trips, {
+            'service_id': '6'
+        }));
 
-    async.forEach(tripGroups.slice(0,2), (group, cb) => {
-        console.log('--->> processing trip', group.key);
+    let lines = tripGroups.map((tripGroup) => {
 
-        group.values = group.values.map((trip) => {
-            let stops = _.filter(data.stopTimes, {
-                trip_id: trip.trip_id
+        tripGroup.values = tripGroup.values.map((trip) => {
+            var variant = _.find(variants, {
+                variant_id: trip.variant_id
             });
-            trip.stops = stops;
-            trip.stops_count = stops.length;
-            return trip;
+
+            var firstStop = _.find(stopTimesGroup, {
+                key: trip.trip_id
+            });
+
+            return Object.assign(trip, {
+                time: firstStop.values[0].arrival_time,
+                stop_id: firstStop.values[0].stop_id,
+                isMainVariant: variant.is_main === '1'
+            });
+        })
+            .filter((trip) => (trip.isMainVariant))
+            .sort((a, b) => {
+                let aTime = Date.parse('01/01/2016 ' + a.time);
+                let bTime = Date.parse('01/01/2016 ' + b.time);
+                return aTime < bTime ? -1 : 1;
+            });
+
+        let st = _.find(stopTimesGroup, {
+            key: tripGroup.values[0].trip_id
         });
 
-        let mainTripCount = getMostFreq(_.map(group.values, 'stops_count'));
-
-        group.main = _.find(group.values, {stops_count: parseInt(mainTripCount, 10)});
-
-        lines.push({
-          id: group.key,
-          stops: group.main
+        let coords = st.values.map((trip) => {
+            return _.find(stops, {
+                stop_id: trip.stop_id
+            });
         });
 
-        cb();
-    }, (err) => {
-      console.log('processing done!');
-      console.log(lines);
+
+        return {
+            name: tripGroup.key,
+            coords
+        };
     });
-});
 
-function countOccurence(arr) {
-    return arr.reduce((countMap, word)  => {
-        countMap[word] = ++countMap[word] || 1;
-        return countMap;
-    }, {});
-}
-
-function getMostFreq(arr) {
-	var counts = countOccurence(arr);
-	return Object.keys(counts).reduce((a, b) => (counts[a] > counts[b] ? a : b ));
+    fs.writeFile('./output.json', JSON.stringify(lines, null, 2));
+    console.log('---->> DONE');
 }

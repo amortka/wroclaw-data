@@ -263,7 +263,7 @@ export default class Map extends React.Component {
         const mapStyle = {
             height: `${this.props.height}px`,
             width: `${this.props.width}px`,
-            overflow: 'hidden'
+            overflow: 'hidden',
         };
 
         return (
@@ -398,7 +398,6 @@ function selectHexbin(el, hexbinInfoGroup, size, scale, force) {
             .attr('cy', d => d.key.split(',')[1]);
 
         showTooltip.call(this, d3.mean(pointsData, dd => +dd.val.rate).toFixed(2));
-
     } else {
         hideTooltip.call(this);
     }
