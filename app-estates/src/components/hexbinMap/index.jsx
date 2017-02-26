@@ -392,6 +392,7 @@ function selectHexbin(el, hexbinInfoGroup, size, scale, force) {
                     console.log(`${avg} (${d.values.length})`);
                 }
             })
+            .on('mouseout', hideTooltip.bind(this))
             .transition()
             .style('pointer-events', 'visiblePainted')
             .attr('cx', d => d.key.split(',')[0])
