@@ -7,13 +7,36 @@ html, body {
   display: flex;
   align-items: stretch;
   justify-content: stretch;
+  overflow: hidden;
 }
 
 #map-container {
   flex: 1 1 auto;
   margin: 2px;
+  opacity: 0.01;
 }
 
-img.leaflet-tile{
+#line-details {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  height: 200px;
+  margin: 2px;
+  padding: 20px;
+
+  background: #2c3e50;
+  z-index: 1000;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+img.leaflet-tile {
   pointer-events: none;
+}
+
+.line {
+  cursor: pointer;
 }
