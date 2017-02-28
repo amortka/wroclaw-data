@@ -118,9 +118,42 @@ function drawMap(data) {
             d3.queue()
                 .defer(d3.json, `./data/lines/line_${line.name}.json`)
                 .defer(fetchPartLine, input)
-                .await((err, lineDetails, directions,) => {
+                .await((err, lineDetails, directions) => {
                     drawLineDetails(lineDetails, directions);
                 });
+
+            /*d3.json(`./data/lines/line_${line.name}.json`, (lineDetails => {
+                //     drawLineDetails(line, directions);
+                fetchPartLine(input, (err, directions) => {
+                    // downloadJSON(result);
+                    drawLineDetails(lineDetails, directions);
+                })
+            }));*/
+
+
+            /*fetchPartLine(input, (err, result) => {
+             downloadJSON(result);
+             //drawLineDetails(sections, result);
+             });*/
+
+            // d3.json('./data/results.json', (directions => {
+            //     drawLineDetails(line, directions);
+            // }));
+
+            /*d3.queue()
+                .defer(d3.json, './data/lines/line_134.json')
+                .defer(d3.json, './data/results.json')
+                .await((err, lineDetails, directions,) => {
+                    drawLineDetails(lineDetails, directions);
+            });*/
+
+            /*async.map(groups, fetchPartLine, (err, results) => {
+             // console.log('results', results);
+                downloadJSON(results);
+                // drawLineDetails(sections, results);
+             });*/
+
+
         }
 
         function getSectionsFromCoords(inputCords) {
@@ -165,7 +198,7 @@ function drawMap(data) {
 
 function drawLineDetails(lineDetails, directions) {
 
-    const containerEl =  d3.select('#line-details svg');
+    const containerEl =  d3.select('#line-details');
     containerEl.attr('class', 'open');
 
     const svg = d3.select('#line-details svg').empty() ? d3.select('#line-details').append('svg') : d3.select('#line-details svg');

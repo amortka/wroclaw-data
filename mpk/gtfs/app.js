@@ -130,6 +130,9 @@ function processData(err) {
                     }
                 });
             })
+            .filter(trip => {
+                return trip.length === st.values.length;
+            })
             .sort((a, b) => {
                 let aTime = Date.parse(`${FIXED_DATE} ${a[0].arrival_time}`);
                 let bTime = Date.parse(`${FIXED_DATE} ${b[0].arrival_time}`);

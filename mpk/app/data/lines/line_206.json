@@ -6,135 +6,147 @@
       "found": [
         {
           "time": null,
-          "arrival_time": "25:13:00",
-          "departure_time": "25:13:00",
+          "arrival_time": "24:07:00",
+          "departure_time": "24:07:00",
           "stop_sequence": "0"
         },
         {
           "time": null,
-          "arrival_time": "25:15:00",
-          "departure_time": "25:15:00",
+          "arrival_time": "24:09:00",
+          "departure_time": "24:09:00",
           "stop_sequence": "1"
         },
         {
           "time": null,
-          "arrival_time": "25:17:00",
-          "departure_time": "25:17:00",
+          "arrival_time": "24:10:00",
+          "departure_time": "24:10:00",
           "stop_sequence": "2"
         },
         {
           "time": null,
-          "arrival_time": "25:18:00",
-          "departure_time": "25:18:00",
+          "arrival_time": "24:11:00",
+          "departure_time": "24:11:00",
           "stop_sequence": "3"
         },
         {
           "time": null,
-          "arrival_time": "25:20:00",
-          "departure_time": "25:20:00",
+          "arrival_time": "24:12:00",
+          "departure_time": "24:12:00",
           "stop_sequence": "4"
         },
         {
           "time": null,
-          "arrival_time": "25:21:00",
-          "departure_time": "25:21:00",
+          "arrival_time": "24:13:00",
+          "departure_time": "24:13:00",
           "stop_sequence": "5"
         },
         {
           "time": null,
-          "arrival_time": "25:22:00",
-          "departure_time": "25:22:00",
+          "arrival_time": "24:14:00",
+          "departure_time": "24:14:00",
           "stop_sequence": "6"
         },
         {
           "time": null,
-          "arrival_time": "25:23:00",
-          "departure_time": "25:23:00",
+          "arrival_time": "24:15:00",
+          "departure_time": "24:15:00",
           "stop_sequence": "7"
         },
         {
           "time": null,
-          "arrival_time": "25:24:00",
-          "departure_time": "25:24:00",
+          "arrival_time": "24:16:00",
+          "departure_time": "24:16:00",
           "stop_sequence": "8"
         },
         {
           "time": null,
-          "arrival_time": "25:26:00",
-          "departure_time": "25:26:00",
+          "arrival_time": "24:18:00",
+          "departure_time": "24:18:00",
           "stop_sequence": "9"
         },
         {
           "time": null,
-          "arrival_time": "25:27:00",
-          "departure_time": "25:27:00",
+          "arrival_time": "24:19:00",
+          "departure_time": "24:19:00",
           "stop_sequence": "10"
         },
         {
           "time": null,
-          "arrival_time": "25:28:00",
-          "departure_time": "25:28:00",
+          "arrival_time": "24:20:00",
+          "departure_time": "24:20:00",
           "stop_sequence": "11"
         },
         {
           "time": null,
-          "arrival_time": "25:29:00",
-          "departure_time": "25:29:00",
+          "arrival_time": "24:21:00",
+          "departure_time": "24:21:00",
           "stop_sequence": "12"
         },
         {
           "time": null,
-          "arrival_time": "25:30:00",
-          "departure_time": "25:30:00",
+          "arrival_time": "24:22:00",
+          "departure_time": "24:22:00",
           "stop_sequence": "13"
         },
         {
           "time": null,
-          "arrival_time": "25:32:00",
-          "departure_time": "25:32:00",
+          "arrival_time": "24:22:00",
+          "departure_time": "24:22:00",
           "stop_sequence": "14"
         },
         {
           "time": null,
-          "arrival_time": "25:33:00",
-          "departure_time": "25:33:00",
+          "arrival_time": "24:23:00",
+          "departure_time": "24:23:00",
           "stop_sequence": "15"
         },
         {
           "time": null,
-          "arrival_time": "25:34:00",
-          "departure_time": "25:34:00",
+          "arrival_time": "24:24:00",
+          "departure_time": "24:24:00",
           "stop_sequence": "16"
         },
         {
           "time": null,
-          "arrival_time": "25:35:00",
-          "departure_time": "25:35:00",
+          "arrival_time": "24:25:00",
+          "departure_time": "24:25:00",
           "stop_sequence": "17"
         },
         {
           "time": null,
-          "arrival_time": "25:36:00",
-          "departure_time": "25:36:00",
+          "arrival_time": "24:26:00",
+          "departure_time": "24:26:00",
           "stop_sequence": "18"
         },
         {
           "time": null,
-          "arrival_time": "25:37:00",
-          "departure_time": "25:37:00",
+          "arrival_time": "24:27:00",
+          "departure_time": "24:27:00",
           "stop_sequence": "19"
         },
         {
           "time": null,
-          "arrival_time": "25:38:00",
-          "departure_time": "25:38:00",
+          "arrival_time": "24:28:00",
+          "departure_time": "24:28:00",
           "stop_sequence": "20"
         },
         {
           "time": null,
-          "arrival_time": "25:41:00",
-          "departure_time": "25:41:00",
+          "arrival_time": "24:30:00",
+          "departure_time": "24:30:00",
           "stop_sequence": "21"
+        },
+        {
+          "time": null,
+          "arrival_time": "24:33:00",
+          "departure_time": "24:33:00",
+          "stop_sequence": "22"
+        },
+        {
+          "time": null,
+          "arrival_time": "24:36:00",
+          "departure_time": "24:36:00",
+          "stop_sequence": "23"
         }
       ]
     },
@@ -143,135 +155,147 @@
       "found": [
         {
           "time": null,
-          "arrival_time": "25:13:00",
-          "departure_time": "25:13:00",
+          "arrival_time": "24:07:00",
+          "departure_time": "24:07:00",
           "stop_sequence": "0"
         },
         {
           "time": null,
-          "arrival_time": "25:15:00",
-          "departure_time": "25:15:00",
+          "arrival_time": "24:09:00",
+          "departure_time": "24:09:00",
           "stop_sequence": "1"
         },
         {
           "time": null,
-          "arrival_time": "25:17:00",
-          "departure_time": "25:17:00",
+          "arrival_time": "24:10:00",
+          "departure_time": "24:10:00",
           "stop_sequence": "2"
         },
         {
           "time": null,
-          "arrival_time": "25:18:00",
-          "departure_time": "25:18:00",
+          "arrival_time": "24:11:00",
+          "departure_time": "24:11:00",
           "stop_sequence": "3"
         },
         {
           "time": null,
-          "arrival_time": "25:20:00",
-          "departure_time": "25:20:00",
+          "arrival_time": "24:12:00",
+          "departure_time": "24:12:00",
           "stop_sequence": "4"
         },
         {
           "time": null,
-          "arrival_time": "25:21:00",
-          "departure_time": "25:21:00",
+          "arrival_time": "24:13:00",
+          "departure_time": "24:13:00",
           "stop_sequence": "5"
         },
         {
           "time": null,
-          "arrival_time": "25:22:00",
-          "departure_time": "25:22:00",
+          "arrival_time": "24:14:00",
+          "departure_time": "24:14:00",
           "stop_sequence": "6"
         },
         {
           "time": null,
-          "arrival_time": "25:23:00",
-          "departure_time": "25:23:00",
+          "arrival_time": "24:15:00",
+          "departure_time": "24:15:00",
           "stop_sequence": "7"
         },
         {
           "time": null,
-          "arrival_time": "25:24:00",
-          "departure_time": "25:24:00",
+          "arrival_time": "24:16:00",
+          "departure_time": "24:16:00",
           "stop_sequence": "8"
         },
         {
           "time": null,
-          "arrival_time": "25:26:00",
-          "departure_time": "25:26:00",
+          "arrival_time": "24:18:00",
+          "departure_time": "24:18:00",
           "stop_sequence": "9"
         },
         {
           "time": null,
-          "arrival_time": "25:27:00",
-          "departure_time": "25:27:00",
+          "arrival_time": "24:19:00",
+          "departure_time": "24:19:00",
           "stop_sequence": "10"
         },
         {
           "time": null,
-          "arrival_time": "25:28:00",
-          "departure_time": "25:28:00",
+          "arrival_time": "24:20:00",
+          "departure_time": "24:20:00",
           "stop_sequence": "11"
         },
         {
           "time": null,
-          "arrival_time": "25:29:00",
-          "departure_time": "25:29:00",
+          "arrival_time": "24:21:00",
+          "departure_time": "24:21:00",
           "stop_sequence": "12"
         },
         {
           "time": null,
-          "arrival_time": "25:30:00",
-          "departure_time": "25:30:00",
+          "arrival_time": "24:22:00",
+          "departure_time": "24:22:00",
           "stop_sequence": "13"
         },
         {
           "time": null,
-          "arrival_time": "25:32:00",
-          "departure_time": "25:32:00",
+          "arrival_time": "24:22:00",
+          "departure_time": "24:22:00",
           "stop_sequence": "14"
         },
         {
           "time": null,
-          "arrival_time": "25:33:00",
-          "departure_time": "25:33:00",
+          "arrival_time": "24:23:00",
+          "departure_time": "24:23:00",
           "stop_sequence": "15"
         },
         {
           "time": null,
-          "arrival_time": "25:34:00",
-          "departure_time": "25:34:00",
+          "arrival_time": "24:24:00",
+          "departure_time": "24:24:00",
           "stop_sequence": "16"
         },
         {
           "time": null,
-          "arrival_time": "25:35:00",
-          "departure_time": "25:35:00",
+          "arrival_time": "24:25:00",
+          "departure_time": "24:25:00",
           "stop_sequence": "17"
         },
         {
           "time": null,
-          "arrival_time": "25:36:00",
-          "departure_time": "25:36:00",
+          "arrival_time": "24:26:00",
+          "departure_time": "24:26:00",
           "stop_sequence": "18"
         },
         {
           "time": null,
-          "arrival_time": "25:37:00",
-          "departure_time": "25:37:00",
+          "arrival_time": "24:27:00",
+          "departure_time": "24:27:00",
           "stop_sequence": "19"
         },
         {
           "time": null,
-          "arrival_time": "25:38:00",
-          "departure_time": "25:38:00",
+          "arrival_time": "24:28:00",
+          "departure_time": "24:28:00",
           "stop_sequence": "20"
         },
         {
           "time": null,
-          "arrival_time": "25:41:00",
-          "departure_time": "25:41:00",
+          "arrival_time": "24:30:00",
+          "departure_time": "24:30:00",
           "stop_sequence": "21"
+        },
+        {
+          "time": null,
+          "arrival_time": "24:33:00",
+          "departure_time": "24:33:00",
+          "stop_sequence": "22"
+        },
+        {
+          "time": null,
+          "arrival_time": "24:36:00",
+          "departure_time": "24:36:00",
+          "stop_sequence": "23"
         }
       ]
     },
@@ -280,135 +304,147 @@
       "found": [
         {
           "time": null,
-          "arrival_time": "25:13:00",
-          "departure_time": "25:13:00",
+          "arrival_time": "24:07:00",
+          "departure_time": "24:07:00",
           "stop_sequence": "0"
         },
         {
           "time": null,
-          "arrival_time": "25:15:00",
-          "departure_time": "25:15:00",
+          "arrival_time": "24:09:00",
+          "departure_time": "24:09:00",
           "stop_sequence": "1"
         },
         {
           "time": null,
-          "arrival_time": "25:17:00",
-          "departure_time": "25:17:00",
+          "arrival_time": "24:10:00",
+          "departure_time": "24:10:00",
           "stop_sequence": "2"
         },
         {
           "time": null,
-          "arrival_time": "25:18:00",
-          "departure_time": "25:18:00",
+          "arrival_time": "24:11:00",
+          "departure_time": "24:11:00",
           "stop_sequence": "3"
         },
         {
           "time": null,
-          "arrival_time": "25:20:00",
-          "departure_time": "25:20:00",
+          "arrival_time": "24:12:00",
+          "departure_time": "24:12:00",
           "stop_sequence": "4"
         },
         {
           "time": null,
-          "arrival_time": "25:21:00",
-          "departure_time": "25:21:00",
+          "arrival_time": "24:13:00",
+          "departure_time": "24:13:00",
           "stop_sequence": "5"
         },
         {
           "time": null,
-          "arrival_time": "25:22:00",
-          "departure_time": "25:22:00",
+          "arrival_time": "24:14:00",
+          "departure_time": "24:14:00",
           "stop_sequence": "6"
         },
         {
           "time": null,
-          "arrival_time": "25:23:00",
-          "departure_time": "25:23:00",
+          "arrival_time": "24:15:00",
+          "departure_time": "24:15:00",
           "stop_sequence": "7"
         },
         {
           "time": null,
-          "arrival_time": "25:24:00",
-          "departure_time": "25:24:00",
+          "arrival_time": "24:16:00",
+          "departure_time": "24:16:00",
           "stop_sequence": "8"
         },
         {
           "time": null,
-          "arrival_time": "25:26:00",
-          "departure_time": "25:26:00",
+          "arrival_time": "24:18:00",
+          "departure_time": "24:18:00",
           "stop_sequence": "9"
         },
         {
           "time": null,
-          "arrival_time": "25:27:00",
-          "departure_time": "25:27:00",
+          "arrival_time": "24:19:00",
+          "departure_time": "24:19:00",
           "stop_sequence": "10"
         },
         {
           "time": null,
-          "arrival_time": "25:28:00",
-          "departure_time": "25:28:00",
+          "arrival_time": "24:20:00",
+          "departure_time": "24:20:00",
           "stop_sequence": "11"
         },
         {
           "time": null,
-          "arrival_time": "25:29:00",
-          "departure_time": "25:29:00",
+          "arrival_time": "24:21:00",
+          "departure_time": "24:21:00",
           "stop_sequence": "12"
         },
         {
           "time": null,
-          "arrival_time": "25:30:00",
-          "departure_time": "25:30:00",
+          "arrival_time": "24:22:00",
+          "departure_time": "24:22:00",
           "stop_sequence": "13"
         },
         {
           "time": null,
-          "arrival_time": "25:32:00",
-          "departure_time": "25:32:00",
+          "arrival_time": "24:22:00",
+          "departure_time": "24:22:00",
           "stop_sequence": "14"
         },
         {
           "time": null,
-          "arrival_time": "25:33:00",
-          "departure_time": "25:33:00",
+          "arrival_time": "24:23:00",
+          "departure_time": "24:23:00",
           "stop_sequence": "15"
         },
         {
           "time": null,
-          "arrival_time": "25:34:00",
-          "departure_time": "25:34:00",
+          "arrival_time": "24:24:00",
+          "departure_time": "24:24:00",
           "stop_sequence": "16"
         },
         {
           "time": null,
-          "arrival_time": "25:35:00",
-          "departure_time": "25:35:00",
+          "arrival_time": "24:25:00",
+          "departure_time": "24:25:00",
           "stop_sequence": "17"
         },
         {
           "time": null,
-          "arrival_time": "25:36:00",
-          "departure_time": "25:36:00",
+          "arrival_time": "24:26:00",
+          "departure_time": "24:26:00",
           "stop_sequence": "18"
         },
         {
           "time": null,
-          "arrival_time": "25:37:00",
-          "departure_time": "25:37:00",
+          "arrival_time": "24:27:00",
+          "departure_time": "24:27:00",
           "stop_sequence": "19"
         },
         {
           "time": null,
-          "arrival_time": "25:38:00",
-          "departure_time": "25:38:00",
+          "arrival_time": "24:28:00",
+          "departure_time": "24:28:00",
           "stop_sequence": "20"
         },
         {
           "time": null,
-          "arrival_time": "25:41:00",
-          "departure_time": "25:41:00",
+          "arrival_time": "24:30:00",
+          "departure_time": "24:30:00",
           "stop_sequence": "21"
+        },
+        {
+          "time": null,
+          "arrival_time": "24:33:00",
+          "departure_time": "24:33:00",
+          "stop_sequence": "22"
+        },
+        {
+          "time": null,
+          "arrival_time": "24:36:00",
+          "departure_time": "24:36:00",
+          "stop_sequence": "23"
         }
       ]
     }
