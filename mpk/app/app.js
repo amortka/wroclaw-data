@@ -105,39 +105,22 @@ function drawMap(data) {
                     .attr('stroke-width', 2 / projection.scale);
             })
             .on('click', function(d) {
-                console.log('e', d);
-                //downloadJSON(d, 'line-134.json');
+                console.log('e', d.name);
                 verifyLine(d);
             });
 
 
-        verifyLine(processData(data)[0]);
+        // verifyLine(processData(data)[0]);
 
         function verifyLine(line) {
-            let sections = getSectionsFromCoords(line.coords);
             let input = reduceArray(line.coords);
 
-            // d3.json('./data/results.json', (directions => {
-            //     drawLineDetails(line, directions);
-            // }));
-
             d3.queue()
-                .defer(d3.json, './data/lines/line_134.json')
-                .defer(d3.json, './data/results.json')
+                .defer(d3.json, `./data/lines/line_${line.name}.json`)
+                .defer(fetchPartLine, input)
                 .await((err, lineDetails, directions,) => {
                     drawLineDetails(lineDetails, directions);
-            });
-
-            /*async.map(groups, fetchPartLine, (err, results) => {
-             // console.log('results', results);
-                downloadJSON(results);
-                // drawLineDetails(sections, results);
-             });*/
-
-            /*fetchPartLine(input, (err, result) => {
-                downloadJSON(result);
-                //drawLineDetails(sections, result);
-            });*/
+                });
         }
 
         function getSectionsFromCoords(inputCords) {
@@ -177,49 +160,13 @@ function drawMap(data) {
             });
         }
 
-        function drawPartLines(err, results) {
-            if (err) {
-                return console.log('ERROR:', err);
-            }
-
-            let waypoints = [];
-            let time = 0;
-            let distance = 0;
-
-            results.forEach(result => {
-                let route = result.routes[0];
-                waypoints = [...waypoints, ...polyline.decode(route.overview_polyline)];
-
-                route.legs.forEach(leg => {
-                    time += leg.duration.value;
-                    distance += leg.distance.value;
-                });
-
-            });
-
-            lineDetailUpdate.data(processData(data))
-                .enter()
-                .append('path')
-                .attr('d', (d) => {
-                    return lineFunction(waypoints);
-                })
-                .attr('fill', 'none')
-                // .attr('stroke', '#e74c3c')
-                .attr('stroke', (d, idx) => {
-                    return 'red';
-                    // return cScale(idx);
-                })
-                .attr('class', 'line-detailed')
-                .attr('stroke-width', 1 / projection.scale)
-                .attr('opacity', 0.8)
-                .style('pointer-events', 'visiblePainted');
-
-        }
-
     }).addTo(leafletMap);
 }
 
 function drawLineDetails(lineDetails, directions) {
+
+    const containerEl =  d3.select('#line-details svg');
+    containerEl.attr('class', 'open');
 
     const svg = d3.select('#line-details svg').empty() ? d3.select('#line-details').append('svg') : d3.select('#line-details svg');
     svg.selectAll('*').remove();
@@ -301,7 +248,11 @@ function drawLineDetails(lineDetails, directions) {
         .x(function(d) { return x(d.distance.curr); })
         .y(function(d) { return y(d.duration.curr); });
 
-    var area = d3.area()
+    let lineB = d3.line()
+        .x(function(d) { return x(d.distance.curr); })
+        .y(function(d) { return y(d.times.t3.time); });
+
+    var areaA = d3.area()
         .x0(x(0))
         .y0(y(0))
         .x(d => x(d.distance.curr))
@@ -360,17 +311,9 @@ function drawLineDetails(lineDetails, directions) {
     svg.append('g')
         .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
         .append('path')
-        .style('fill', 'url(#areaGradientB)')
+        .style('fill', 'url(#areaGradientA)')
         .datum(legs)
-        .attr('d', areaB);
-
-    svg.append('g')
-      .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
-      .append('path')
-      .style('fill', 'url(#areaGradientA)')
-      .datum(legs)
-      .attr('d', area);
-
+        .attr('d', areaA);
 
     svg.append('g')
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
@@ -384,7 +327,17 @@ function drawLineDetails(lineDetails, directions) {
       .attr('stroke-width', 2)
       .attr('d', line);
 
-    debugger;
+    svg.append('g')
+      .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
+      .append('path')
+      .datum(legs)
+      .attr('class', 'path')
+      .attr('fill', 'none')
+      .attr('stroke', colorB[0])
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-width', 2)
+      .attr('d', lineB);
 }
 
 function splitCoords(inputArray, groupSize) {
@@ -411,9 +364,9 @@ function splitCoords(inputArray, groupSize) {
 
 function processData(data) {
     return data
-        .filter(line => {
-            return line.name === '134';
-        })
+        // .filter(line => {
+        //     return line.name === '134';
+        // })
         .map(line => {
             line.coords = line.coords.map(c => {
                 return {
@@ -453,8 +406,6 @@ function formatMinutes(d) {
 
 function reduceArray(input) {
     let ratio = Math.ceil(input.length / 20);
-
-    // console.log('input.length', input.length, 'ratio', ratio);
 
     return input.filter((val, idx) =>{
         return (idx % ratio == 0);

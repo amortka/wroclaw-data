@@ -19,6 +19,7 @@ html {
 }
 
 #line-details {
+    display: none;
     position: absolute;
     width: 100vw;
     bottom: 0;
@@ -28,6 +29,10 @@ html {
     background: -webkit-linear-gradient(180deg, rgb(79, 79, 79), rgb(36, 36, 36));
     background: linear-gradient(180deg, rgb(79, 79, 79), rgb(36, 36, 36));
     z-index: 1000;
+
+    &.open {
+        display: block;
+    }
 
     svg {
         width: 100%;
