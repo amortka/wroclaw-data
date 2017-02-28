@@ -269,6 +269,13 @@ function drawLineDetails(lineDetails, directions) {
         return leg;
     });
 
+    let totalDurationMax = Math.max(
+        legs[legs.length - 1].duration.curr,
+        legs[legs.length - 1].times.t1.time,
+        legs[legs.length - 1].times.t2.time,
+        legs[legs.length - 1].times.t3.time
+    );
+
     let width = svg.node().getBoundingClientRect().width * 0.9;
     let height = svg.node().getBoundingClientRect().height * 0.6;
 
@@ -278,33 +285,33 @@ function drawLineDetails(lineDetails, directions) {
     let y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
-    x.domain([0, totalDuration]);
-    y.domain([0, totalDistance]);
+    x.domain([0, totalDistance]);
+    y.domain([0, totalDurationMax]);
 
     var xAxis = d3.axisBottom(x)
-        .ticks(10)
-        .tickFormat(formatMinutes)
-        .tickSize(-height);
+        .tickSize(-height, ',.0f');
 
     var yAxis = d3.axisLeft(y)
-        .tickSize(-width, ',.0f')
+        .ticks(10)
+        .tickFormat(formatMinutes)
+        .tickSize(-width)
         .tickValues(y.ticks(5).concat( y.domain() ));
 
     let line = d3.line()
-        .x(function(d) { return x(d.duration.curr); })
-        .y(function(d) { return y(d.distance.curr); });
+        .x(function(d) { return x(d.distance.curr); })
+        .y(function(d) { return y(d.duration.curr); });
 
     var area = d3.area()
         .x0(x(0))
         .y0(y(0))
-        .x(d => x(d.duration.curr))
-        .y1(d => y(d.distance.curr));
+        .x(d => x(d.distance.curr))
+        .y1(d => y(d.duration.curr));
 
     var areaB = d3.area()
         .x0(x(0))
         .y0(y(0))
-        .x(d => x(d.duration.curr))
-        .y1(d => y(d.distance.curr));
+        .x(d => x(d.distance.curr))
+        .y1(d => y(d.times.t3.time));
 
     let colorA = GRADIENTS[4];
     let colorB = GRADIENTS[1];
@@ -349,19 +356,21 @@ function drawLineDetails(lineDetails, directions) {
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
       .call(yAxis);
 
+
+    svg.append('g')
+        .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
+        .append('path')
+        .style('fill', 'url(#areaGradientB)')
+        .datum(legs)
+        .attr('d', areaB);
+
     svg.append('g')
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
       .append('path')
       .style('fill', 'url(#areaGradientA)')
       .datum(legs)
       .attr('d', area);
-    
-    // svg.append('g')
-    //   .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
-    //   .append('path')
-    //   .style('fill', 'url(#areaGradientB)')
-    //   .datum(lineDetails.timeTable.found())
-    //   .attr('d', areaB);
+
 
     svg.append('g')
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
