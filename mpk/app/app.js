@@ -12,13 +12,25 @@ import './style.scss';
 const L = new lD3SvgFactory(leaflet, d3);
 const mapEl = document.getElementById('map-container');
 const lineDetailsEl = document.getElementById('line-details');
-
 const leafletMap = L.map(mapEl).setView([51.10, 17.02], 12);
+
+const PADDING = {
+  left: 50,
+  top: 20
+}
 
 const TILE_URL = {
     dark: 'https://api.mapbox.com/styles/v1/amortka/cixvstzqi00152rql928bfsr2/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW1vcnRrYSIsImEiOiJjaW56azMwZW4wMHU0dnhseTJmdmd5MnNvIn0.ETjQqiTTrYueBpf8_aiOhg',
     osm: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 };
+
+const GRADIENTS = [
+  ['#92fe9d', '#00c9ff'],
+  ['#FFC371', '#ff9068'],
+  ['#B24592', '#F15F79'],
+  ['#e96443', '#904e95'],
+  ['#9be15d', '#00e3ae'],
+];
 
 const directionsService = new google.maps.DirectionsService;
 
@@ -103,15 +115,11 @@ function drawMap(data) {
             downloadJSON(results);
         });*/
 
-        console.log('splitCoords(processData(data)[0].coords, 15)', splitCoords(processData(data)[0].coords, 15));
-
         verifyLine(processData(data)[0]);
-
 
         function verifyLine(line) {
             let sections = getSectionsFromCoords(line.coords);
             let groups = splitCoords(line.coords, 15);
-            console.log('sections', sections.length);
 
             d3.json('./data/results.json', (directions => {
                 drawLineDetails(sections, directions);
@@ -169,24 +177,11 @@ function drawMap(data) {
                 waypoints = [...waypoints, ...polyline.decode(route.overview_polyline)];
 
                 route.legs.forEach(leg => {
-                    /*sections.push({
-                     duration: leg.duration.value,
-                     distance: leg.distance.value
-                     });*/
-
                     time += leg.duration.value;
                     distance += leg.distance.value;
                 });
 
             });
-
-            console.log('results:', results);
-            console.log('time:', time);
-            console.log('distance:', distance / 1000);
-
-            // console.log('sections no', sections.length);
-            // console.log('sections:', JSON.stringify(sections, false, 2));
-
 
             lineDetailUpdate.data(processData(data))
                 .enter()
@@ -213,7 +208,7 @@ function drawMap(data) {
 function drawLineDetails(sections, directions) {
 
     const svg = d3.select('#line-details svg').empty() ? d3.select('#line-details').append('svg') : d3.select('#line-details svg');
-    const g = svg.select('g').empty() ? svg.append('g') : svg.select('g');
+    svg.selectAll('*').remove();
 
     let legs = [];
 
@@ -221,10 +216,12 @@ function drawLineDetails(sections, directions) {
         legs = [...legs, ...direction.routes[0].legs];
     });
 
-
     let totalDistance = 0;
     let totalDuration = 0;
-    legs.forEach((leg, idx) => {
+    legs.map(leg => {
+      //leg.duration.value = 0;
+      return leg;
+    }).forEach((leg, idx) => {
         totalDistance += leg.distance.value;
         totalDuration += leg.duration.value;
 
@@ -232,17 +229,8 @@ function drawLineDetails(sections, directions) {
         leg.duration.curr = totalDuration;
     });
 
-    /*let totalDistance = legs.reduce((total, leg) => {
-        return total += leg.distance.value;
-    }, 0);
-
-    let totalDuration = legs.reduce((total, leg) => {
-        return total += leg.duration.value;
-    }, 0);*/
-
-
     let width = svg.node().getBoundingClientRect().width * 0.9;
-    let height = svg.node().getBoundingClientRect().height * 0.9;
+    let height = svg.node().getBoundingClientRect().height * 0.6;
 
     let x = d3.scaleLinear()
         .rangeRound([0, width]);
@@ -250,41 +238,75 @@ function drawLineDetails(sections, directions) {
     let y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
+    x.domain([0, totalDistance]);
+    y.domain([0, totalDuration]);
+
+    var xAxis = d3.axisBottom(x)
+        .ticks(10, ',.0f')
+        .tickSize(-height);
+
+    var yAxis = d3.axisLeft(y)
+        .tickSize(-width)
+        .tickFormat(formatMinutes)
+        .tickValues(y.ticks(5).concat( y.domain() ));
+
     let line = d3.line()
         .x(function(d) { return x(d.distance.curr); })
         .y(function(d) { return y(d.duration.curr); });
 
-    console.log('sections', sections);
 
-    x.domain([0, totalDistance]);
-    y.domain([0, totalDuration]);
+    var area = d3.area()
+        .y0(y(0))
+        .x0(x(0))
+        .x(d => x(d.distance.curr))
+        .y1(d => y(d.duration.curr));
 
-    /*legs.forEach(leg => {
-        console.log('leg', leg.distance.value, '->', x(leg.distance.value));
-        console.log('leg', leg.duration.value, '->', y(leg.duration.value));
-    });*/
+    var areaGradient = svg.append('defs')
+      .append('linearGradient')
+      .attr('id','areaGradient')
+      .attr('x1', '0%').attr('y1', '0%')
+      .attr('x2', '0%').attr('y2', '100%');
 
-    g.append('path')
-        .datum(legs)
-        .attr('fill', 'none')
-        .attr('stroke', 'steelblue')
-        .attr('stroke-linejoin', 'round')
-        .attr('stroke-linecap', 'round')
-        .attr('stroke-width', 1.5)
-        .attr('d', line);
+    let colorA = GRADIENTS[4];
 
-    debugger;
+    areaGradient.append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorA[0])
+      .attr('stop-opacity', 0.9);
+    areaGradient.append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorA[1])
+      .attr('stop-opacity', 0.5);
+
+    svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(' + PADDING.left + ', ' + (height + PADDING.top) + ')')
+      .call(xAxis)
+
+    svg.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
+      .call(yAxis)
+
+    svg.append('g')
+      .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
+      .append('path')
+      .style("fill", "url(#areaGradient)")
+      .datum(legs)
+      .attr('d', area);
+
+    svg.append('g')
+      .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
+      .append('path')
+      .datum(legs)
+      .attr('class', 'path')
+      .attr('fill', 'none')
+      .attr('stroke', colorA[0])
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-width', 2)
+      .attr('d', line);
 }
-
-// function displayDirections(directions) {
-//     let legs = [];
-//
-//     directions.forEach(direction => {
-//         legs = [...legs, ...direction.routes[0].legs];
-//     });
-//
-//     debugger;
-// }
 
 function splitCoords(inputArray, groupSize) {
     var parts = inputArray.map((i, idx) => {
@@ -335,5 +357,19 @@ function downloadJSON(obj, name) {
     aEl.click();
     document.body.removeChild(aEl);
 }
+
+function formatMinutes(d) {
+    var hours = Math.floor(d / 3600),
+        minutes = Math.floor((d - (hours * 3600)) / 60),
+        seconds = d - (minutes * 60);
+    var output = seconds + 's';
+    if (minutes) {
+        output = minutes + 'm ' + output;
+    }
+    if (hours) {
+        output = hours + 'h ' + output;
+    }
+    return output;
+};
 
 initMap();

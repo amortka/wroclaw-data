@@ -1,42 +1,71 @@
 @import '../node_modules/leaflet/dist/leaflet.css';
 
-html, body {
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-  overflow: hidden;
+body,
+html {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    overflow: hidden;
 }
 
 #map-container {
-  flex: 1 1 auto;
-  margin: 2px;
-  opacity: 0.01;
+    flex: 1 1 auto;
+    margin: 2px;
 }
 
 #line-details {
-  position: absolute;
-  width: 100vw;
-  bottom: 0;
-  height: 200px;
-  margin: 2px;
-  padding: 20px;
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    height: 200px;
+    margin: 2px;
+    padding: 20px;
+    background: -webkit-linear-gradient(180deg, rgb(79, 79, 79), rgb(36, 36, 36));
+    background: linear-gradient(180deg, rgb(79, 79, 79), rgb(36, 36, 36));
+    z-index: 1000;
 
-  background: #2c3e50;
-  z-index: 1000;
+    svg {
+        width: 100%;
+        height: 100%;
+    }
 
-  svg {
-    width: 100%;
-    height: 100%;
-  }
+    .path {
+      -webkit-filter: drop-shadow( -5px -5px 5px #000 );
+        filter: drop-shadow( -5px -5px 5px #000 );
+    }
+
+    .axis {
+        fill: none;
+
+        .domain {
+            stroke: #fff;
+            opacity: 0.2;
+        }
+
+        .tick {
+            line {
+                stroke: #7f8c8d;
+                stroke-dasharray: 4 6;
+            }
+
+            &:first-of-type {
+                display: none;
+            }
+        }
+
+        text {
+            fill: #ecf0f1;
+        }
+    }
 }
 
 img.leaflet-tile {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 .line {
-  cursor: pointer;
+    cursor: pointer;
 }
