@@ -107,23 +107,37 @@ function drawMap(data) {
             .on('click', function(d) {
                 console.log('e', d);
                 //downloadJSON(d, 'line-134.json');
+                verifyLine(d);
             });
 
-
-        /*async.map(splitCoords(processData(data)[0].coords, 15), fetchPartLine, (err, results) => {
-            console.log('results', results);
-            downloadJSON(results);
-        });*/
 
         verifyLine(processData(data)[0]);
 
         function verifyLine(line) {
             let sections = getSectionsFromCoords(line.coords);
-            let groups = splitCoords(line.coords, 15);
+            let input = reduceArray(line.coords);
 
-            d3.json('./data/results.json', (directions => {
-                drawLineDetails(sections, directions);
-            }));
+            // d3.json('./data/results.json', (directions => {
+            //     drawLineDetails(line, directions);
+            // }));
+
+            d3.queue()
+                .defer(d3.json, './data/lines/line_134.json')
+                .defer(d3.json, './data/results.json')
+                .await((err, lineDetails, directions,) => {
+                    drawLineDetails(lineDetails, directions);
+            });
+
+            /*async.map(groups, fetchPartLine, (err, results) => {
+             // console.log('results', results);
+                downloadJSON(results);
+                // drawLineDetails(sections, results);
+             });*/
+
+            /*fetchPartLine(input, (err, result) => {
+                downloadJSON(result);
+                //drawLineDetails(sections, result);
+            });*/
         }
 
         function getSectionsFromCoords(inputCords) {
@@ -205,28 +219,54 @@ function drawMap(data) {
     }).addTo(leafletMap);
 }
 
-function drawLineDetails(sections, directions) {
+function drawLineDetails(lineDetails, directions) {
 
     const svg = d3.select('#line-details svg').empty() ? d3.select('#line-details').append('svg') : d3.select('#line-details svg');
     svg.selectAll('*').remove();
 
-    let legs = [];
+    let legs = directions.routes[0].legs;
 
-    directions.forEach(direction => {
-        legs = [...legs, ...direction.routes[0].legs];
+    legs.unshift({
+        distance: {
+            text: '0',
+            value: 0
+        },
+        duration: {
+            text: '0',
+            value: 0
+        },
     });
 
     let totalDistance = 0;
     let totalDuration = 0;
-    legs.map(leg => {
-      //leg.duration.value = 0;
-      return leg;
-    }).forEach((leg, idx) => {
+
+    let timeTable = lineDetails.timeTable.map(tp => {
+        return reduceArray(tp.found);
+    });
+
+    legs = legs.map((leg, idx) => {
         totalDistance += leg.distance.value;
         totalDuration += leg.duration.value;
 
         leg.distance.curr = totalDistance;
         leg.duration.curr = totalDuration;
+
+        leg.times = {
+            t1: {
+                time: timeTable[0][idx].time,
+                arrival_time: timeTable[0][idx].arrival_time
+            },
+            t2: {
+                time: timeTable[1][idx].time,
+                arrival_time: timeTable[1][idx].arrival_time
+            },
+            t3: {
+                time: timeTable[2][idx].time,
+                arrival_time: timeTable[2][idx].arrival_time
+            },
+        };
+
+        return leg;
     });
 
     let width = svg.node().getBoundingClientRect().width * 0.9;
@@ -238,62 +278,90 @@ function drawLineDetails(sections, directions) {
     let y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
-    x.domain([0, totalDistance]);
-    y.domain([0, totalDuration]);
+    x.domain([0, totalDuration]);
+    y.domain([0, totalDistance]);
 
     var xAxis = d3.axisBottom(x)
-        .ticks(10, ',.0f')
+        .ticks(10)
+        .tickFormat(formatMinutes)
         .tickSize(-height);
 
     var yAxis = d3.axisLeft(y)
-        .tickSize(-width)
-        .tickFormat(formatMinutes)
+        .tickSize(-width, ',.0f')
         .tickValues(y.ticks(5).concat( y.domain() ));
 
     let line = d3.line()
-        .x(function(d) { return x(d.distance.curr); })
-        .y(function(d) { return y(d.duration.curr); });
-
+        .x(function(d) { return x(d.duration.curr); })
+        .y(function(d) { return y(d.distance.curr); });
 
     var area = d3.area()
-        .y0(y(0))
         .x0(x(0))
-        .x(d => x(d.distance.curr))
-        .y1(d => y(d.duration.curr));
+        .y0(y(0))
+        .x(d => x(d.duration.curr))
+        .y1(d => y(d.distance.curr));
 
-    var areaGradient = svg.append('defs')
+    var areaB = d3.area()
+        .x0(x(0))
+        .y0(y(0))
+        .x(d => x(d.duration.curr))
+        .y1(d => y(d.distance.curr));
+
+    let colorA = GRADIENTS[4];
+    let colorB = GRADIENTS[1];
+
+    var areaGradientA = svg.append('defs')
       .append('linearGradient')
-      .attr('id','areaGradient')
+      .attr('id','areaGradientA')
       .attr('x1', '0%').attr('y1', '0%')
       .attr('x2', '0%').attr('y2', '100%');
 
-    let colorA = GRADIENTS[4];
-
-    areaGradient.append('stop')
+    areaGradientA.append('stop')
       .attr('offset', '0%')
       .attr('stop-color', colorA[0])
       .attr('stop-opacity', 0.9);
-    areaGradient.append('stop')
+    areaGradientA.append('stop')
       .attr('offset', '100%')
       .attr('stop-color', colorA[1])
       .attr('stop-opacity', 0.5);
 
+    var areaGradientB = svg.append('defs')
+        .append('linearGradient')
+        .attr('id','areaGradientB')
+        .attr('x1', '0%').attr('y1', '0%')
+        .attr('x2', '0%').attr('y2', '100%');
+
+    areaGradientB.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', colorB[0])
+        .attr('stop-opacity', 0.9);
+    areaGradientB.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', colorB[1])
+        .attr('stop-opacity', 0.5);
+
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(' + PADDING.left + ', ' + (height + PADDING.top) + ')')
-      .call(xAxis)
+      .call(xAxis);
 
     svg.append('g')
       .attr('class', 'y axis')
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
-      .call(yAxis)
+      .call(yAxis);
 
     svg.append('g')
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
       .append('path')
-      .style("fill", "url(#areaGradient)")
+      .style('fill', 'url(#areaGradientA)')
       .datum(legs)
       .attr('d', area);
+    
+    // svg.append('g')
+    //   .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
+    //   .append('path')
+    //   .style('fill', 'url(#areaGradientB)')
+    //   .datum(lineDetails.timeTable.found())
+    //   .attr('d', areaB);
 
     svg.append('g')
       .attr('transform', 'translate(' + PADDING.left + ', ' + PADDING.top + ')')
@@ -306,6 +374,8 @@ function drawLineDetails(sections, directions) {
       .attr('stroke-linecap', 'round')
       .attr('stroke-width', 2)
       .attr('d', line);
+
+    debugger;
 }
 
 function splitCoords(inputArray, groupSize) {
@@ -371,5 +441,15 @@ function formatMinutes(d) {
     }
     return output;
 };
+
+function reduceArray(input) {
+    let ratio = Math.ceil(input.length / 20);
+
+    // console.log('input.length', input.length, 'ratio', ratio);
+
+    return input.filter((val, idx) =>{
+        return (idx % ratio == 0);
+    });
+}
 
 initMap();
