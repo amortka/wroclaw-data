@@ -10,7 +10,13 @@ font-family: 'Roboto Slab', serif;
 font-family: 'Lora', serif;
 font-family: 'Bree Serif', serif;
 */
-section.has-dark-background, section.has-dark-background h1, section.has-dark-background h2, section.has-dark-background h3, section.has-dark-background h4, section.has-dark-background h5, section.has-dark-background h6 {
+section.has-dark-background,
+section.has-dark-background h1,
+section.has-dark-background h2,
+section.has-dark-background h3,
+section.has-dark-background h4,
+section.has-dark-background h5,
+section.has-dark-background h6 {
   color: #fff; }
 
 /*********************************************
@@ -294,6 +300,19 @@ body {
 
 .reveal section {
   text-align: left; }
+  .reveal section img {
+    border: none;
+    background: none;
+    box-shadow: none; }
+
+.reveal section.dark h1,
+.reveal section.dark h2,
+.reveal section.dark p {
+  color: #fff; }
+
+.reveal section.dark h1:after,
+.reveal section.dark h1:before {
+  background-color: #FFF; }
 
 .reveal h1 {
   display: flex;
@@ -308,40 +327,45 @@ body {
   flex-grow: 0.95;
   margin-left: 10px; }
 
-.reveal h1:before, .reveal h1:after {
-  background-color: #ddd;
+.reveal h1:after,
+.reveal h1:before {
+  background-color: #000;
   content: '\a0';
-  height: 2px;
+  height: 4px;
   position: relative;
   top: 0.65em; }
 
-.reveal h2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; }
+.reveal h1.center:before {
+  flex-grow: 0.5; }
 
-.reveal h2:before {
-  flex-grow: 0.05;
-  margin-right: 10px; }
-
-.reveal h2:after {
-  flex-grow: 0.95;
+.reveal h1.center:after {
+  flex-grow: 0.5;
   margin-left: 10px; }
 
-.reveal h2:before, .reveal h2:after {
-  content: '\a0';
-  height: 2px;
-  position: relative;
-  top: 0.65em; }
+.reveal h2, .reveal p {
+  padding-left: 100px;
+  width: 75%; }
 
-.reveal h1 i, .reveal h2 i {
+.reveal h1 i,
+.reveal h2 i {
+  background: #2ecc71;
   background: #2ecc71;
   color: #fff;
   border-radius: 50%;
-  conent: ' '; }
+  content: ' ';
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  margin-right: 0.2em;
+  position: relative;
+  top: 0.05em;
+  font-size: 1.2em; }
 
-.reveal h1 i:before, .reveal h2 i:before {
-  display: none; }
+.reveal h1 i:before,
+.reveal h2 i:before {
+  position: relative;
+  font-size: 0.55em;
+  top: -.25em; }
 
 .reveal em {
   font-style: normal;
@@ -354,7 +378,8 @@ body {
   overflow: hidden;
   font-weight: 500;
   color: #fff;
-  padding: 0 0.2em; }
+  padding: 0 0.2em;
+  margin: 0 0.2em; }
   .reveal em:before {
     position: absolute;
     top: 0;
@@ -367,8 +392,81 @@ body {
     transition: transform 0.2s;
     transform: translateY(95%); }
 
-.reveal section.present em:before {
+.reveal em.dark:before {
+  background-color: #2c3e50; }
+
+.reveal h2 em:before {
+  background-color: #3498db; }
+
+.reveal p em:before {
+  background-color: #34495e; }
+
+.reveal p.dark {
+  display: inline;
+  padding: 0; }
+  .reveal p.dark span {
+    background: #2c3e50;
+    -webkit-box-decoration-break: clone;
+    padding: 0.1em 0.1em; }
+    .reveal p.dark span i {
+      background-color: #e74c3c;
+      padding: 0.1em 0.3em; }
+
+.reveal .acenter {
+  width: 100%;
+  text-align: center; }
+  .reveal .acenter img {
+    width: 80%; }
+
+.reveal section.present:not(.abstract) em:before {
   animation: emSlideUp 0.2s 0.1s normal forwards ease-in-out; }
+
+.reveal #slideAbout svg {
+  vertical-align: middle; }
+
+.reveal #slideAgenda h2 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; }
+
+.reveal #slideD3-01 {
+  text-align: center; }
+
+.reveal #slideD3-02,
+.reveal #slideD3-03,
+.reveal #slideD3-04,
+.reveal #slideD3-05 {
+  text-align: center; }
+  .reveal #slideD3-02 h2,
+  .reveal #slideD3-03 h2,
+  .reveal #slideD3-04 h2,
+  .reveal #slideD3-05 h2 {
+    width: auto; }
+
+.reveal #slideDataVisualization h2 {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  width: auto; }
+
+.reveal #slideDataVisualization h2:nth-of-type(2) em:before {
+  background-color: #2ecc71; }
+
+.reveal #d3Likejquery h1 {
+  margin-bottom: 0.5em; }
+
+.reveal #d3DataJoinEnterExit,
+.reveal #d3DataJoinRemoveUpdate,
+.reveal #d3DataJoinRemoveById {
+  text-align: center; }
+  .reveal #d3DataJoinEnterExit video,
+  .reveal #d3DataJoinRemoveUpdate video,
+  .reveal #d3DataJoinRemoveById video {
+    max-height: 100%;
+    max-width: 100%;
+    border: 1px solid #ccc; }
+
+.reveal #slideLeafletIntro iframe {
+  width: 100%;
+  height: 400px; }
 
 @keyframes emSlideUp {
   0% {

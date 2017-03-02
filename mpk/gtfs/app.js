@@ -137,6 +137,11 @@ function processData(err) {
                     key: trip.trip_id
                 });
 
+                let hhmm = firstStop.values[0].arrival_time.split(':');
+                if (parseInt(hhmm[0], 10) >= 24) {
+                  hhmm[0] = (parseInt(hhmm[0], 10) - 24) + '';
+                }
+
                 return Object.assign(trip, {
                     time: reformatTime(firstStop.values[0].arrival_time),
                     stop_id: firstStop.values[0].stop_id
@@ -147,6 +152,10 @@ function processData(err) {
                     let bTime = Date.parse(`${FIXED_DATE} ${b.time}`);
                     return aTime < bTime ? -1 : 1;
                 });
+
+            fs.writeFile('./output/_trips.json', JSON.stringify(trips, null, 2));
+
+            //return;
 
             let st = _.find(stopTimesGroup, {
                 key: trips[0].trip_id
@@ -162,6 +171,13 @@ function processData(err) {
                 return _.find(stopTimesGroup, {
                     key: trip.trip_id
                 }).values.map(time => {
+
+                    var hhmm = time.arrival_time.split(':');
+
+                    if (parseInt(hhmm[0]) >= 24) {
+                      hhmm[0] = (parseInt(hhmm[0], 10) - 24) + '';
+                    }
+
                     return {
                         time: Date.parse(`${FIXED_DATE} ${reformatTime(time.arrival_time)}`),
                         arrival_time: reformatTime(time.arrival_time),
@@ -218,6 +234,8 @@ function processData(err) {
     fs.writeFile('./output.json', JSON.stringify(lines, null, 2));
 
     console.log('---->> DONE');
+*/
+}
 
 }
 
