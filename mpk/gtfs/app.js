@@ -10,7 +10,7 @@ const OPTIONS = process.argv.slice(2);
 
 const FIXED_DATE = '01/01/2016';
 
-const TIME_POINTS = [
+const TIME_TABLE = [
     Date.parse(`${FIXED_DATE} 07:00`),
     Date.parse(`${FIXED_DATE} 13:00`),
     Date.parse(`${FIXED_DATE} 15:30`)
@@ -54,21 +54,6 @@ function processData(err) {
 
     let {stops, trips, stopTimes, variants} = data;
 
-    stops = stops.map(s => ({
-        stop_id: s.stop_id,
-        stop_code: s.stop_code,
-        stop_name: s.stop_name,
-        lat: s.stop_lat,
-        lon: s.stop_lon
-    }));
-
-    let stopTimesGroup = d3.nest()
-        .key((trip) => {
-            return trip.trip_id;
-        })
-        .entries(stopTimes);
-
-
     let tripGroups = d3.nest()
         .key((trip) => {
             return trip.route_id;
@@ -77,14 +62,69 @@ function processData(err) {
             'service_id': '6'
         }));
 
-
     let lines = tripGroups
-        // .filter(l => {
-        //     return l.key === '134' || l.key === '31';
-        // })
+        /*.filter(l => {
+            return !!~['134', '206'].indexOf(l.key);
+        })*/
         .map((tripGroup) => {
+            let line = {};
+            let maxStops = 0;
 
             let mainTrips = tripGroup.values.filter((trip) => {
+                var variant = _.find(variants, {
+                    variant_id: trip.variant_id
+                });
+
+                return variant.is_main === '1';
+            }).map(trip => trip.trip_id);
+
+            let trips = mainTrips.map(tripId => {
+
+                let trips = stopTimes.filter(stopTime => {
+                    return tripId === stopTime.trip_id;
+                }).map((stopTime, idx, stops) => {
+                    stopTime.arrival_time = reformatTime(stopTime.arrival_time);
+                    stopTime.departure_time = reformatTime(stopTime.departure_time);
+                    stopTime.stop_sequence = parseInt(stopTime.stop_sequence, 10);
+
+                    stopTime.time = Date.parse(`${FIXED_DATE} ${stopTime.arrival_time}`);
+                    stopTime.timeOffset = idx > 0 ? Math.ceil(stopTime.time - stops[idx - 1].time) / 1000 : 0;
+
+                    return stopTime;
+                }).sort((a, b) => {
+                    return a.stop_sequence < b.stop_sequence ? -1 : 1;
+                });
+
+                maxStops = Math.max(maxStops, trips.length);
+
+                return trips;
+            });
+
+            trips = trips.filter(trip => {
+                return trip.length === maxStops;
+            });
+
+            /* ------------------------------------- */
+
+            line.name = tripGroup.key;
+
+            line.trips = TIME_TABLE.map(timePoint => {
+                return trips.reduce((currTrip, prevTrip) => {
+                    return Math.abs(currTrip[0].time - timePoint) < Math.abs(prevTrip[0].time - timePoint) ? currTrip : prevTrip;
+                });
+            });
+
+            line.coords = trips[0].map(trip => {
+                return trip.stop_id;
+            }).map(stopId => {
+                return stops.find(stop => {
+                    return stop.stop_id === stopId;
+                });
+            });
+
+            return line;
+
+            /*let mainTrips = tripGroup.values.filter((trip) => {
                 var variant = _.find(variants, {
                     variant_id: trip.variant_id
                 });
@@ -98,7 +138,7 @@ function processData(err) {
                 });
 
                 return Object.assign(trip, {
-                    time: firstStop.values[0].arrival_time,
+                    time: reformatTime(firstStop.values[0].arrival_time),
                     stop_id: firstStop.values[0].stop_id
                 });
             })
@@ -123,9 +163,9 @@ function processData(err) {
                     key: trip.trip_id
                 }).values.map(time => {
                     return {
-                        time: Date.parse(`${FIXED_DATE} ${time.arrival_time}`),
-                        arrival_time: time.arrival_time,
-                        departure_time: time.departure_time,
+                        time: Date.parse(`${FIXED_DATE} ${reformatTime(time.arrival_time)}`),
+                        arrival_time: reformatTime(time.arrival_time),
+                        departure_time: reformatTime(time.departure_time),
                         stop_sequence: time.stop_sequence
                     }
                 });
@@ -134,14 +174,14 @@ function processData(err) {
                 return trip.length === st.values.length;
             })
             .sort((a, b) => {
-                let aTime = Date.parse(`${FIXED_DATE} ${a[0].arrival_time}`);
-                let bTime = Date.parse(`${FIXED_DATE} ${b[0].arrival_time}`);
+                let aTime = Date.parse(`${FIXED_DATE} ${reformatTime(a[0].arrival_time)}`);
+                let bTime = Date.parse(`${FIXED_DATE} ${reformatTime(b[0].arrival_time)}`);
                 return aTime < bTime ? -1 : 1;
             });
 
             let timeTable = TIME_POINTS.map(tp => {
                 var closest = fullTimeTable.reduce((curr, prev) => {
-                    return Math.abs(Date.parse(`${FIXED_DATE} ${curr[0].arrival_time}`) - tp) < Math.abs(Date.parse(`${FIXED_DATE} ${prev[0].arrival_time}`) - tp) ? curr : prev;
+                    return Math.abs(Date.parse(`${FIXED_DATE} ${reformatTime(curr[0].arrival_time)}`) - tp) < Math.abs(Date.parse(`${FIXED_DATE} ${reformatTime(prev[0].arrival_time)}`) - tp) ? curr : prev;
                 });
 
                 return {
@@ -163,17 +203,27 @@ function processData(err) {
                 name: tripGroup.key,
                 coords,
                 timeTable,
-            };
+            };*/
         });
 
-    lines.forEach(line => {
+    /*lines.forEach(line => {
         console.log('saving line:', line.name);
         fs.writeFile('./output/line_' + line.name + '.json', JSON.stringify(_.omit(line, 'coords'), null, 2));
-    });
+    });*/
 
-    fs.writeFile('./output.json', JSON.stringify(lines.map(line => {
+    /*fs.writeFile('./output.json', JSON.stringify(lines.map(line => {
         return _.omit(line, 'timeTable');
-    }), null, 2));
+    }), null, 2))*/
+
+    fs.writeFile('./output.json', JSON.stringify(lines, null, 2));
+
     console.log('---->> DONE');
 
+}
+
+function reformatTime(input) {
+    var hhmm = input.split(':');
+    hhmm[0] = parseInt(hhmm[0], 10) > 23 ? parseInt(hhmm[0], 10) - 24 : hhmm[0];
+
+    return ('00:00:00' + hhmm.join(':')).slice(-8);
 }
