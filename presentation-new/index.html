@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>reveal.js</title>
+	<title>Wizualizacje danych: czyli jak pokazac tyysiace danych nie tracac szczegolow</title>
 
 	<link rel="stylesheet" href="css/reveal.css">
 	<link rel="stylesheet" href="css/theme/minimal.css">
@@ -47,10 +47,10 @@
 			</section>
 			<section id="slideAgenda" data-background-image="images/doodles_bg.svg" data-background-size="cover">
 				<h1><i class="fa fa-list-ol"></i> agenda</h1>
-				<h2>1. wizualizacje, pomysł, kontekst, historia</h2>
-				<h2>2. javascript: d3, svg + leaflet</h2>
-				<h2>3. dane, publiczne, preprocessing, gtfs</h2>
-				<h2>4. podsumowanie, qa</h2>
+				<h2 class="fragment">1. wizualizacje, pomysł, kontekst, historia</h2>
+				<h2 class="fragment">2. javascript: d3, svg + leaflet</h2>
+				<h2 class="fragment">3. dane, publiczne, preprocessing, gtfs</h2>
+				<h2 class="fragment">4. podsumowanie, qa</h2>
 			</section>
 			<section id="slideDemoEstates" data-background-image="images/doodles_bg.svg" data-background-size="cover">
 				<h1>TODO: put demo here</h1>
@@ -66,22 +66,22 @@
 				<section id="slideD3-02">
 					<h1>czym <em>nie jest</em> d3?</h1>
 					<img src="images/d3-not-chart-lib.svg" />
-					<h2 class="!fragment">... biblioteką do rysowania <em>wykresów</em></h2>
+					<h2 class="fragment">... biblioteką do rysowania <em>wykresów</em></h2>
 				</section>
 				<section id="slideD3-03">
 					<h1>czym <em>nie jest</em> d3?</h1>
 					<img src="images/d3-not-map.svg" />
-					<h2 class="!fragment">... biblioteką do rysowania <em>map</em></h2>
+					<h2 class="fragment">... biblioteką do rysowania <em>map</em></h2>
 				</section>
 				<section id="slideD3-04">
 					<h1>czym <em>nie jest</em> d3?</h1>
 					<img src="images/d3-not-draw.svg" />
-					<h2 class="!fragment">... biblioteką <em>rysującą SVG</em></h2>
+					<h2 class="fragment">... biblioteką <em>rysującą SVG</em></h2>
 				</section>
 				<section id="slideD3-05">
 					<h1>czym <em>nie jest</em> d3?</h1>
 					<img src="images/d3-non-abstract.svg" />
-					<h2 class="!fragment">... <em>warstwą abstrakcji</em> nad SVG</h2>
+					<h2 class="fragment">... <em>warstwą abstrakcji</em> nad SVG</h2>
 				</section>
 				<section id="slideD3-06">
 					<h1>d3 </h1>
@@ -94,8 +94,8 @@
 			</section>
 			<section id="slideDataVisualization" data-background-image="images/doodles_bg.svg" data-background-size="cover">
 				<h1>Wizualizacja danych</h1>
-				<h2>transformacja <em>danych</em> w <em>informację</em></h2>
-				<h2>transformacja <em>danych</em> na <em>elementy</em> (d3)</h2>
+				<h2 class="fragment">transformacja <em>danych</em> w <em>informację</em></h2>
+				<h2 class="fragment">transformacja <em>informacji</em> na <em>elementy</em></h2>
 			</section>
 			<section id="d3Likejquery" class="dark" data-background-image="images/coding-blue.svg" data-background-size="cover" data-background-position="top">
 				<h1 class="center">d3 jest <em>trochę</em> jak <em>jQuery</em></h1>
@@ -117,9 +117,13 @@ $('#foo')
 				<h1 class="center">a trochę <em class="dark">nie jest</em></h1>
 				<h2 class="center"><em class="dark">data join:</em></em></h2>
 				<p class="dark">
-					<span class="fragment"><i>laczy</i> obiekt z elementem,</br></span>
-					<span class="fragment">sledzi <i>zmiany</i> pomiedzy nowym a starym obiektem,</br></span>
-					<span class="fragment">pozwala <i>animowac</i> roznice pomiedzy starym a nowym</span>
+					<span class="1fragment"><i>łączy</i> obiekt z elementem,</br></span>
+				</p>
+					<p class="dark">
+					<span class="1fragment">śledzi <i>zmiany</i> pomiędzy nowym a starym obiektem,</br></span>
+				</p>
+					<p class="dark">
+					<span class="1fragment">pozwala <i>animować</i> różnice pomiędzy starym a nowym</span>
 				</p>
 			</section>
 			<section id="d3DataJoinEnterExit" data-background-image="images/doodles_bg.svg">
@@ -159,7 +163,7 @@ $('#foo')
 				<div class="acenter"><img src="images/hexbin-vs-squares.png" /></div>
 			</section>
 
-			<section id="slideLeaflet">
+			<section id="slideLeaflet" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
 						<section id="slideLeafletIntro">
 							<h1>leaflet.js</h1>
 							<h2>czyli alternatywa dla <em>google maps</em></h2>
@@ -244,6 +248,70 @@ init() {
 </code></pre>
 					</section>
 			</section>
+			<section id="dataWhereToGet" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
+				<h1>Źródła danych</h1>
+				<h2><img src="images/data-public-api.svg" />GTFS (csv)</h2>
+				<h2><img src="images/data-public-webscrapp.svg" />Web scrapping</h2>
+			</section>
+			<section id="dataGTFS-what" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
+				<h1>Skąd google zna rozkład mpk?</h1>
+				<div class="acenter">
+					<img src="images/google-transport.PNG" />
+				</div>
+			</section>
+			<section id="dataGTFS"  data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
+				<h1>Format danych <em>GTFS</em></h1>
+				<h2>General Transit Feed Specification</h2>
+				<ul>
+					<li>agency.txt<small>agencje, firmy obsługujące kursy</small></li>
+					<li>stops.txt<small>lokalizacje przystanków</small></li>
+					<li>routes.txt<small>trasy wraz terminem ważności</small></li>
+					<li>trips.txt<small>wszystkie kursy</small></li>
+					<li>stop_times.txt<small>tabela czasów przystankowych</small></li>
+					<li>calendar.txt<small>czas obowiązywania rozkładu, brygady</small></li>
+					<li class="other"><em>niewymagane:</em> calendar_dates.txt, fare_attributes.txt, fare_rules.txt, shapes.txt, frequencies.txt, transfers.txt, feed_info.txt
+				</ul>
+			</section>
+			<section id="dataGTFSTips" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
+				<h1>GTFS <em>tips</em></h1>
+				<h2>preprocessing <small><em>stop_times.txt === ~32 MB</em></small></h2>
+				<h2>HH:mm (kurs od godz. <em>23:55</em> do <em>25:01</em>)
+				<h2>validatory</h2>
+				<h2>transitfeeds.com</h2>
+			</section>
+			<section id="gtfsWroclaw" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
+				<h1>GTFS MPK Wrocław 03/03/2017</h1>
+				<ul>
+					<li class="fragment"><strong>control_stops.txt:</strong> Unrecognised file in feed: control_stops.txt</li>
+					<li class="fragment"><strong>route_types.txt:</strong> Unrecognised file in feed: route_types.txt</li>
+					<li class="fragment"><strong>routes.txt:</strong> Unrecognised column in routes.txt: route_type2_id</li>
+					<li class="fragment"><strong>routes.txt:</strong> Unrecognised column in routes.txt: valid_from</li>
+					<li class="fragment"><strong>routes.txt:</strong> Unrecognised column in routes.txt: valid_until</li>
+					<li class="fragment"><strong>trips.txt:</strong> Unrecognised column in trips.txt: brigade_id</li>
+					<li class="fragment"><strong>trips.txt:</strong> Unrecognised column in trips.txt: vehicle_id</li>
+					<li class="fragment"><strong>trips.txt:</strong> Unrecognised column in trips.txt: variant_id</li>
+					<li class="fragment"><strong>variants.txt:</strong> Unrecognised file in feed: variants.txt</li>
+					<li class="fragment"><strong>vehicle_types.txt:</strong> Unrecognised file in feed: vehicle_types.txt</li>
+				</ul>
+			</section>
+			<section id="dataWebScrapping" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-background-position="top">
+				<h1>Web scrapping</h1>
+				<h2>to automatyczne lub półautomatyczne <em>pobieranie</em> i <em>przetwarzanie</em> zawartości stron internetowych.</h2>
+			</section>
+			<section id="dataGoogleForms">
+
+			</section>
+			<section class="dark" id="eofPodsumowanie" data-background-image="images/bg-doodle.png" data-background-size="cover" data-background-position="top">
+				<h1>Podsumowanie</h1>
+				<h2 class="fragment">1. Wizualizacja ma kontekst</h2>
+				<h2 class="fragment">2. D3 data([...], d => d.id)</h2>
+				<h2 class="fragment">3. L.Layer.extend</h2>
+				<h2 class="fragment">4. Hexbins FTW</h2>
+				<h2 class="fragment">5. 25:01 jest OK</h2>
+			</section>
+			<section class="dark" id="eofThanks" data-background-image="images/bg-doodle.png" data-background-size="cover" data-background-position="top">
+				<h1>Dziękuję za uwagę</h1>
+			</section>
 		</div>
 	</div>
 
@@ -266,11 +334,11 @@ init() {
 
 
 			keyboard: {
-				33: 'left',
-				34: 'right',
-				27: 'up',
+				// 33: 'left',
+				// 34: 'right',
+				// 27: 'up',
 				//116
-				190: 'down'
+				// 190: 'down'
 
 				// 27 - play
 				// 34 - page down

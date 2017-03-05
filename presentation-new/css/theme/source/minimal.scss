@@ -115,6 +115,10 @@ section.has-dark-background {
         width: 75%;
     }
 
+    h2 small {
+      vertical-align: middle;
+    }
+
     h1,
     h2 {
         i {
@@ -236,6 +240,12 @@ section.has-dark-background {
         }
     }
 
+    #slideD3-06 {
+        img {
+          margin: 0;
+        }
+    }
+
     #slideDataVisualization {
           h2 {
               margin-top: 1.5em;
@@ -255,6 +265,20 @@ section.has-dark-background {
       }
     }
 
+    #d3NotLikejquery {
+      h2 em {
+        margin-left: 0;
+      }
+      p.dark {
+        font-size: 1.2em;
+        line-height: 2em;
+        padding-left: 100px;
+        span {
+          padding: 0.8em 0.5em;
+        }
+      }
+    }
+
     #d3DataJoinEnterExit,
     #d3DataJoinRemoveUpdate,
     #d3DataJoinRemoveById {
@@ -266,10 +290,61 @@ section.has-dark-background {
       }
     }
 
+    #slideHexbinsExplanation,
+    #slideHexbinsSquares {
+      img {
+        margin: 0;
+      }
+    }
+
     #slideLeafletIntro {
       iframe {
         width: 100%;
         height: 400px;
+      }
+    }
+
+    #dataWhereToGet {
+      h2 {
+        width: 100%;
+      }
+      img {
+        vertical-align: middle;
+        display: inline-block;
+        width: 150px;
+        margin-right: 1em;
+      }
+    }
+
+    #dataGTFS {
+      small {
+        vertical-align: middle;
+        margin-left: 1em;
+        opacity: 0.8;
+      }
+      li.other {
+        font-size: 0.7em;
+      }
+    }
+
+    #dataGTFSTips {
+      h2 {
+        width: 100%;
+      }
+    }
+
+    #gtfsWroclaw {
+      ul {
+        font-size: 0.8em;
+        list-style-type: none;
+        li {
+          color: rgba(52, 73, 94,1.0);
+          background-color: rgba(243, 156, 18, 0.3);
+          border: 1px solid rgba(231, 76, 60, 1.0);
+          padding: 0 0.4em;
+          border-radius: 0.2em;
+          margin-bottom: 0.4em;
+        }
       }
     }
 }

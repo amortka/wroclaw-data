@@ -346,6 +346,9 @@ body {
   padding-left: 100px;
   width: 75%; }
 
+.reveal h2 small {
+  vertical-align: middle; }
+
 .reveal h1 i,
 .reveal h2 i {
   background: #2ecc71;
@@ -442,6 +445,9 @@ body {
   .reveal #slideD3-05 h2 {
     width: auto; }
 
+.reveal #slideD3-06 img {
+  margin: 0; }
+
 .reveal #slideDataVisualization h2 {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
@@ -452,6 +458,16 @@ body {
 
 .reveal #d3Likejquery h1 {
   margin-bottom: 0.5em; }
+
+.reveal #d3NotLikejquery h2 em {
+  margin-left: 0; }
+
+.reveal #d3NotLikejquery p.dark {
+  font-size: 1.2em;
+  line-height: 2em;
+  padding-left: 100px; }
+  .reveal #d3NotLikejquery p.dark span {
+    padding: 0.8em 0.5em; }
 
 .reveal #d3DataJoinEnterExit,
 .reveal #d3DataJoinRemoveUpdate,
@@ -464,9 +480,44 @@ body {
     max-width: 100%;
     border: 1px solid #ccc; }
 
+.reveal #slideHexbinsExplanation img,
+.reveal #slideHexbinsSquares img {
+  margin: 0; }
+
 .reveal #slideLeafletIntro iframe {
   width: 100%;
   height: 400px; }
+
+.reveal #dataWhereToGet h2 {
+  width: 100%; }
+
+.reveal #dataWhereToGet img {
+  vertical-align: middle;
+  display: inline-block;
+  width: 150px;
+  margin-right: 1em; }
+
+.reveal #dataGTFS small {
+  vertical-align: middle;
+  margin-left: 1em;
+  opacity: 0.8; }
+
+.reveal #dataGTFS li.other {
+  font-size: 0.7em; }
+
+.reveal #dataGTFSTips h2 {
+  width: 100%; }
+
+.reveal #gtfsWroclaw ul {
+  font-size: 0.8em;
+  list-style-type: none; }
+  .reveal #gtfsWroclaw ul li {
+    color: #34495e;
+    background-color: rgba(243, 156, 18, 0.3);
+    border: 1px solid #e74c3c;
+    padding: 0 0.4em;
+    border-radius: 0.2em;
+    margin-bottom: 0.4em; }
 
 @keyframes emSlideUp {
   0% {
