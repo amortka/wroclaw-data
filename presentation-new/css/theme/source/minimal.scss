@@ -5,10 +5,12 @@
  */
 // Default mixins and settings -----------------
 @import "../template/mixins";
-@import "../template/settings"; // ---------------------------------------------
+@import "../template/settings";
+// ---------------------------------------------
 // Include theme-specific fonts
 @import url(../../lib/font/source-sans-pro/source-sans-pro.css);
-@import url( 'https://fonts.googleapis.com/css?family=Bree+Serif|Lora|Roboto+Condensed|Roboto+Slab');
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Lora|Roboto+Condensed|Roboto+Slab');
+
 /*
 font-family: 'Roboto Slab', serif;
 font-family: 'Lora', serif;
@@ -25,7 +27,7 @@ $headingTextShadow: none;
 $headingLetterSpacing: normal;
 $headingTextTransform: normal;
 $headingFontWeight: 600;
-$linkColor: #2ecc71;
+$linkColor: #ff7726; //#2ecc71;
 $linkColorHover: lighten($linkColor, 15%);
 $selectionBackgroundColor: lighten($linkColor, 25%);
 $heading1Size: 1.8em;
@@ -35,325 +37,452 @@ $heading4Size: 1.0em;
 $headingLineColor: #000;
 
 section.has-dark-background {
-    &,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: #fff;
-    }
+  &,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #fff;
+  }
 }
+
 // Theme template ------------------------------
 @import "../template/theme"; // ---------------------------------------------
 
 .reveal {
-    section {
-        text-align: left;
 
-        img {
-            border: none;
-            background: none;
-            box-shadow: none;
-        }
+  .squares {
+    i {
+      position: absolute;
+      display: block;
+      width: 80px;
+      height: 80px;
+      background-color: $linkColor;
+    }
+    i:nth-child(1) {
+      left: 0;
+      top: 0;
+    }
+    i:nth-child(2) {
+      right: 0;
+      top: 80px;
+    }
+    i:nth-child(3) {
+      right: 80px;
+      top: 0px;
+    }
+    &:before {
+      content: 'aaa';
+    }
+  }
+
+  .counter {
+    z-index: 1000;
+    position: absolute;
+    left: 60px;
+    right: auto;
+    bottom: 60px;
+    font-size: 30px;
+    color: $linkColor;
+    opacity: 1;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    &:before {
+      z-index: 1200;
+      background-color: #fff;
+      position: absolute;
+      content: '';
+      width: 80px;
+      height: 80px;
+      display: block;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 5px solid $linkColor;
+      transition: transform .6s ease-in-out;
     }
 
-    section.dark {
-        h1,
-        h2,
-        p {
-            color: #fff;
-        }
+    span {
+      z-index: 1500;
+      position: absolute;
+      left: 0;
+      top: 0;
+      text-align: center;
+      width: 90px;
+    }
+  }
 
-        h1, h2 {
-          // text-shadow: 2px 2px 0px rgba(50, 50, 50, 1);
-        }
 
-        h1:after,
-        h1:before {
-            background-color: #FFF;
-        }
+  .present .counter:before {
+    transform: rotate(-45deg);
+  }
+
+  section {
+    text-align: left;
+    height: 100%;
+
+    img {
+      border: none;
+      background: none;
+      box-shadow: none;
+    }
+  }
+
+  section.dark {
+    h1,
+    h2,
+    p {
+      color: #fff;
     }
 
-    h1 {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    h1:before {
-        flex-grow: 0.05;
-        margin-right: 10px;
-    }
-
-    h1:after {
-        flex-grow: 0.95;
-        margin-left: 10px;
+    h1, h2 {
+      // text-shadow: 2px 2px 0px rgba(50, 50, 50, 1);
     }
 
     h1:after,
     h1:before {
-        background-color: $headingLineColor;
-        content: '\a0';
-        height: 4px;
-        position: relative;
-        top: 0.65em;
+      background-color: #FFF;
+    }
+  }
+
+  h1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  h1:before {
+    flex-grow: 0.05;
+    margin-right: 10px;
+  }
+
+  h1:after {
+    flex-grow: 0.95;
+    margin-left: 10px;
+  }
+
+  h1:after,
+  h1:before {
+    background-color: $headingLineColor;
+    content: '\a0';
+    height: 4px;
+    position: relative;
+    top: 0.65em;
+  }
+
+  h1.center:before {
+    flex-grow: 0.5;
+  }
+
+  h1.center:after {
+    flex-grow: 0.5;
+    margin-left: 10px;
+  }
+
+  h2, p {
+    padding-left: 100px;
+    width: 75%;
+  }
+
+  h2 small {
+    vertical-align: middle;
+  }
+
+  h1,
+  h2 {
+    i {
+      background: $linkColor;
+      color: #fff;
+      border-radius: 50%;
+      content: ' ';
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      margin-right: 0.2em;
+      position: relative;
+      top: 0.05em;
+      font-size: 1.2em;
     }
 
-    h1.center:before {
-        flex-grow: 0.5;
+    i:before {
+      position: relative;
+      font-size: 0.55em;
+      top: -.25em;
     }
+  }
 
-    h1.center:after {
-        flex-grow: 0.5;
-        margin-left: 10px;
+  em {
+    font-style: normal;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    vertical-align: bottom;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 500;
+    color: #fff;
+    padding: 0 0.2em;
+    margin: 0 0.2em;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      background-color: $linkColor;
+      content: '';
+      transition: transform 0.2s;
+      transform: translateY(95%);
     }
+  }
 
-    h2, p {
-        padding-left: 100px;
-        width: 75%;
+  em.dark:before {
+    background-color: #2c3e50;
+  }
+
+  h2 em:before {
+    background-color: #3498db;
+  }
+
+  p em:before {
+    background-color: #34495e;
+  }
+
+  p.dark {
+    display: inline;
+    padding: 0;
+
+    span {
+      background: #2c3e50;
+      -webkit-box-decoration-break: clone;
+      padding: 0.1em 0.1em;
+      i {
+        background-color: #e74c3c;
+        padding: 0.1em 0.3em;
+      }
     }
+  }
 
-    h2 small {
+  .acenter {
+    width: 100%;
+    text-align: center;
+    img {
+      width: 80%;
+    }
+  }
+
+  section.present:not(.abstract) {
+    em:before {
+      animation: emSlideUp 0.2s 0.1s normal forwards ease-in-out;
+    }
+  }
+
+  footer {
+    position: absolute;
+    left: 0;
+    bottom: 1em;
+    font-size: 0.5em;
+    ul {
+      list-style-type: none;
+      li {
+        color: #787878;
+        &.current {
+          color: #000
+        }
+      }
+
+    }
+  }
+
+  #slideIntro {
+    p {
+      margin-top: 3em;
+    }
+  }
+
+  #slideIntro,
+  #eofThanks {
+    height: 100%;
+
+    .logo {
+      background: #fff;
+      width: 200px;
+    }
+  }
+
+  #slideIntro {
+    .logo {
+      position: absolute;
+      right: 0px;
+      bottom: 1em;
+    }
+  }
+
+  #eofThanks {
+    .logo {
+      margin-top: 4em;
+      width: 400px;
+    }
+  }
+
+  #slideAbout {
+    svg {
+      //margin-left: em;
       vertical-align: middle;
     }
+  }
 
-    h1,
+  #slideAgenda {
     h2 {
-        i {
-            background: $linkColor;
-            background: #2ecc71;
-            color: #fff;
-            border-radius: 50%;
-            content: ' ';
-            width: 1em;
-            height: 1em;
-            text-align: center;
-            margin-right: 0.2em;
-            position: relative;
-            top: 0.05em;
-            font-size: 1.2em;
-        }
-
-        i:before {
-            position: relative;
-            font-size: 0.55em;
-            top: -.25em;
-        }
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
     }
+  }
 
-    em {
-        font-style: normal;
-        position: relative;
-        display: inline-block;
-        outline: none;
-        vertical-align: bottom;
-        text-decoration: none;
-        white-space: nowrap;
-        overflow: hidden;
-        font-weight: 500;
-        color: #fff;
-        padding: 0 0.2em;
-        margin: 0 0.2em;
+  #slideD3-01 {
+    text-align: center;
+  }
 
-        &:before {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            background-color: $linkColor;
-            content: '';
-            transition: transform 0.2s;
-            transform: translateY(95%);
-        }
+  #slideD3-02,
+  #slideD3-03,
+  #slideD3-04,
+  #slideD3-05 {
+    text-align: center;
+    h2 {
+      width: auto;
     }
+  }
 
-    em.dark:before {
-      background-color: #2c3e50;
+  #slideD3-06 {
+    img {
+      margin: 0;
     }
+  }
 
-    h2 em:before {
-      background-color: #3498db;
+  #slideDataVisualization {
+    h2 {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      width: auto;
     }
-
-    p em:before {
-      background-color: #34495e;
+    h2:nth-of-type(2) {
+      em:before {
+        background-color: #2ecc71;
+      }
     }
+  }
 
+  #d3Likejquery {
+    h1 {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  #d3NotLikejquery {
+    h2 em {
+      margin-left: 0;
+    }
     p.dark {
-      display: inline;
-      padding: 0;
-
+      font-size: 1.2em;
+      line-height: 2em;
+      padding-left: 100px;
       span {
-        background: #2c3e50;
-        -webkit-box-decoration-break: clone;
-        padding: 0.1em 0.1em;
-        i {
-          background-color: #e74c3c;
-          padding: 0.1em 0.3em;
-        }
+        padding: 0.8em 0.5em;
       }
     }
+  }
 
-    .acenter {
+  #d3DataJoinEnterExit,
+  #d3DataJoinRemoveUpdate,
+  #d3DataJoinRemoveById {
+    text-align: center;
+    video {
+      max-height: 100%;
+      max-width: 100%;
+      border: 1px solid #ccc;
+    }
+  }
+
+  #slideHexbinsExplanation,
+  #slideHexbinsSquares {
+    img {
+      margin: 0;
+    }
+  }
+
+  #slideLeafletIntro {
+    iframe {
       width: 100%;
-      text-align: center;
-      img {
-        width: 80%;
+      height: 400px;
+    }
+  }
+
+  #dataSource {
+    h2 {
+      width: 100%;
+    }
+    img {
+      vertical-align: middle;
+      display: inline-block;
+      width: 200px;
+      margin-right: 1em;
+    }
+  }
+
+  #dataGTFS {
+    small {
+      vertical-align: middle;
+      margin-left: 1em;
+      opacity: 0.8;
+    }
+    li.other {
+      font-size: 0.7em;
+    }
+  }
+
+  #dataGTFSTips {
+    h2 {
+      width: 100%;
+    }
+  }
+
+  #gtfsWroclaw {
+    ul {
+      font-size: 0.8em;
+      list-style-type: none;
+      li {
+        color: rgba(52, 73, 94, 1.0);
+        background-color: rgba(243, 156, 18, 0.3);
+        border: 1px solid rgba(231, 76, 60, 1.0);
+        padding: 0 0.4em;
+        border-radius: 0.2em;
+        margin-bottom: 0.4em;
       }
     }
+  }
 
-    section.present:not(.abstract) {
-        em:before {
-            animation: emSlideUp 0.2s 0.1s normal forwards ease-in-out;
-        }
+  #dataGoogleForms {
+    video {
+      width: 100%;
+      border: 1px solid #515151;
     }
-
-    #slideAbout {
-        svg {
-            //margin-left: em;
-            vertical-align: middle;
-        }
-    }
-
-    #slideAgenda {
-        h2 {
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-        }
-    }
-
-    #slideD3-01 {
-        text-align: center;
-    }
-
-    #slideD3-02,
-    #slideD3-03,
-    #slideD3-04,
-    #slideD3-05 {
-        text-align: center;
-        h2 {
-            width: auto;
-        }
-    }
-
-    #slideD3-06 {
-        img {
-          margin: 0;
-        }
-    }
-
-    #slideDataVisualization {
-          h2 {
-              margin-top: 1.5em;
-              margin-bottom: 1.5em;
-              width: auto;
-          }
-          h2:nth-of-type(2) {
-            em:before {
-              background-color: #2ecc71;
-            }
-          }
-    }
-
-    #d3Likejquery {
-      h1 {
-        margin-bottom: 0.5em;
-      }
-    }
-
-    #d3NotLikejquery {
-      h2 em {
-        margin-left: 0;
-      }
-      p.dark {
-        font-size: 1.2em;
-        line-height: 2em;
-        padding-left: 100px;
-        span {
-          padding: 0.8em 0.5em;
-        }
-      }
-    }
-
-    #d3DataJoinEnterExit,
-    #d3DataJoinRemoveUpdate,
-    #d3DataJoinRemoveById {
-      text-align: center;
-      video {
-        max-height: 100%;
-        max-width: 100%;
-        border: 1px solid #ccc;
-      }
-    }
-
-    #slideHexbinsExplanation,
-    #slideHexbinsSquares {
-      img {
-        margin: 0;
-      }
-    }
-
-    #slideLeafletIntro {
-      iframe {
-        width: 100%;
-        height: 400px;
-      }
-    }
-
-    #dataWhereToGet {
-      h2 {
-        width: 100%;
-      }
-      img {
-        vertical-align: middle;
-        display: inline-block;
-        width: 150px;
-        margin-right: 1em;
-      }
-    }
-
-    #dataGTFS {
-      small {
-        vertical-align: middle;
-        margin-left: 1em;
-        opacity: 0.8;
-      }
-      li.other {
-        font-size: 0.7em;
-      }
-    }
-
-    #dataGTFSTips {
-      h2 {
-        width: 100%;
-      }
-    }
-
-    #gtfsWroclaw {
-      ul {
-        font-size: 0.8em;
-        list-style-type: none;
-        li {
-          color: rgba(52, 73, 94,1.0);
-          background-color: rgba(243, 156, 18, 0.3);
-          border: 1px solid rgba(231, 76, 60, 1.0);
-          padding: 0 0.4em;
-          border-radius: 0.2em;
-          margin-bottom: 0.4em;
-        }
-      }
-    }
+  }
 }
-@keyframes emSlideUp {
-    0% {
-        transform: translateY(95%);
-    }
 
-    100% {
-        transform: translateY(0%);
-    }
+@keyframes emSlideUp {
+  0% {
+    transform: translateY(95%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
 }
