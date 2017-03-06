@@ -504,7 +504,7 @@ body {
     .reveal .locator li span i {
       font-style: normal; }
   .reveal .locator li.current span {
-    background: #9b59b6;
+    background: #3498db;
     opacity: 1; }
 
 .reveal #slideTitle1 h1,
