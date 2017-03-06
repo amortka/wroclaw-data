@@ -321,6 +321,7 @@ body {
   content: 'aaa'; }
 
 .reveal .counter {
+  display: none;
   z-index: 1000;
   position: absolute;
   left: 60px;
@@ -495,6 +496,11 @@ body {
       color: #787878; }
       .reveal footer ul li.current {
         color: #000; }
+
+.reveal #slideTitle1 h1,
+.reveal #slideTitle2 h1,
+.reveal #slideTitle3 h1 {
+  margin-top: 3.5em; }
 
 .reveal #slideIntro p {
   margin-top: 3em; }

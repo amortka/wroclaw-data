@@ -79,6 +79,7 @@ section.has-dark-background {
   }
 
   .counter {
+    display: none;
     z-index: 1000;
     position: absolute;
     left: 60px;
@@ -299,6 +300,14 @@ section.has-dark-background {
         }
       }
 
+    }
+  }
+
+  #slideTitle1,
+  #slideTitle2,
+  #slideTitle3, {
+    h1 {
+      margin-top: 3.5em;
     }
   }
 
