@@ -27,9 +27,6 @@
 <body>
 <div class="reveal">
     <div class="slides">
-        <section id="test">
-
-        </section>
         <section id="slideIntro" data-background-image="images/245_bg.png" data-background-size="cover">
             <h1><i class="fa fa-line-chart"></i> wizualizacje <em>danych</em></h1>
             <h2>czyli jak pokazać tysiące danych nie tracąc szczegółów</h2>
@@ -67,68 +64,60 @@
         <section id="slideTitle1" data-background-image="images/doodles_bg.svg" data-background-size="cover">
             <h1 class="center">1. Wizualizacje</h1>
         </section>
-        <section id="slideDemoEstates" data-background-image="images/doodles_bg.svg" data-background-size="cover">
+        <section id="slideDemoEstates" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="1">
             <h1>TODO: put demo here</h1>
         </section>
-        <section id="slideDemoMpk" data-background-image="images/doodles_bg.svg" data-background-size="cover">
+        <section id="slideDemoMpk" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="1">
             <h1>TODO: put demo here</h1>
         </section>
-        <section id="slideDemoContext">
+        <section id="slideDemoContext" data-locator="1">
             <h1 class="center">todo: kontekst</h1>
         </section>
-        <section id="slideTitle2" data-background-image="images/doodles_bg.svg" data-background-size="cover">
+        <section id="slideTitle2" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="2">
             <h1 class="center">2. Javascript</h1>
         </section>
         <section id="slideD3" class="abstract" data-background-image="images/doodles_bg.svg"
                  data-background-size="cover">
-            <section id="slideD3-01">
+            <section id="slideD3-01" data-locator="2" data-locator-info="d3.js">
                 <h1>D3.js <em>data</em> driven documents</h1>
                 <img src="images/d3.jpg"/>
             </section>
-            <section id="slideD3-02">
+            <section id="slideD3-02" data-locator="2" data-locator-info="d3.js">
                 <h1>czym <em>nie jest</em> d3?</h1>
                 <img src="images/d3-not-chart-lib.svg"/>
-                <h2 class="fragment">... biblioteką do rysowania <em>wykresów</em></h2>
+                <h2 class="fragment" data-locator="2" data-locator-info="d3.js">... biblioteką do rysowania <em>wykresów</em></h2>
             </section>
-            <section id="slideD3-03">
+            <section id="slideD3-03" data-locator="2" data-locator-info="d3.js">
                 <h1>czym <em>nie jest</em> d3?</h1>
                 <img src="images/d3-not-map.svg"/>
                 <h2 class="fragment">... biblioteką do rysowania <em>map</em></h2>
             </section>
-            <section id="slideD3-04">
+            <section id="slideD3-04" data-locator="2" data-locator-info="d3.js">
                 <h1>czym <em>nie jest</em> d3?</h1>
                 <img src="images/d3-not-draw.svg"/>
                 <h2 class="fragment">... biblioteką <em>rysującą SVG</em></h2>
             </section>
-            <section id="slideD3-05">
+            <section id="slideD3-05" data-locator="2" data-locator-info="d3.js">
                 <h1>czym <em>nie jest</em> d3?</h1>
                 <img src="images/d3-non-abstract.svg"/>
                 <h2 class="fragment">... <em>warstwą abstrakcji</em> nad SVG</h2>
             </section>
-            <section id="slideD3-06">
+            <section id="slideD3-06" data-locator="2" data-locator-info="d3.js">
                 <h1>d3 </h1>
                 <h2>to biblioteka do <em>wizualizacji</em> <em>danych</em></h2>
                 <p>od prostych wykresow po skomplikowane <em>interaktywne</em> wizualizacje</p>
                 <div class="acenter">
                     <img src="images/d3-simple-to-adv.svg"/>
                 </div>
-                <footer>
-                  <ul>
-                    <li>1.Demo</li>
-                    <li class="current">1.Javascript / technnika</li>
-                    <li>3. </li>
-                    <li>1.aaa</li>
-                  </ul>
-                </footer>
             </section>
         </section>
-        <section id="slideDataVisualization" data-background-image="images/doodles_bg.svg" data-background-size="cover">
+        <section id="slideDataVisualization" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="2" data-locator-info="d3.js">
             <h1>Wizualizacja danych</h1>
             <h2 class="fragment">transformacja <em>danych</em> w <em>informację</em></h2>
             <h2 class="fragment">transformacja <em>informacji</em> na <em>elementy</em></h2>
         </section>
         <section id="d3Likejquery" class="dark" data-background-image="images/coding-blue.svg"
-                 data-background-size="cover" data-background-position="top">
+                 data-background-size="cover" data-background-position="top" data-locator="2" data-locator-info="d3.js">
             <h1 class="center">d3 jest <em>trochę</em> jak <em>jQuery</em></h1>
             <pre><code data-noescape>
 
@@ -145,7 +134,7 @@ $('#foo')
 				</code></pre>
         </section>
         <section id="d3NotLikejquery" class="dark" data-background-image="images/coding-yellow.svg"
-                 data-background-size="cover" data-background-position="top">
+                 data-background-size="cover" data-background-position="top" data-locator="2" data-locator-info="d3.js">
             <h1 class="center">a trochę <em class="dark">nie jest</em></h1>
             <h2 class="center"><em class="dark">data join:</em></em></h2>
             <p class="dark">
@@ -158,21 +147,21 @@ $('#foo')
                 <span class="1fragment">pozwala <i>animować</i> różnice pomiędzy starym a nowym</span>
             </p>
         </section>
-        <section id="d3DataJoinEnterExit" data-background-image="images/doodles_bg.svg">
+        <section id="d3DataJoinEnterExit" data-background-image="images/doodles_bg.svg" data-locator="2" data-locator-info="d3.js">
             <h1>d3 data([...]), .enter(), .exit()</h1>
             <video src="images/video/1-d3-new-data-enter-exit-2m06s.mp4" controls></video>
         </section>
-        <section id="d3DataJoinRemoveUpdate" data-background-image="images/doodles_bg.svg">
+        <section id="d3DataJoinRemoveUpdate" data-background-image="images/doodles_bg.svg" data-locator="2" data-locator-info="d3.js">
             <h1>d3 update, remove()</h1>
             <video src="images/video/2-d3-new-remove-update.mp4" controls></video>
         </section>
-        <section id="d3DataJoinRemoveById" data-background-image="images/doodles_bg.svg">
+        <section id="d3DataJoinRemoveById" data-background-image="images/doodles_bg.svg" data-locator="2" data-locator-info="d3.js">
             <h1>d3 data([...], <em>d => d.id</em>)</h1>
             <video src="images/video/3-d3-new-data-remove-by-id.mp4" controls></video>
         </section>
 
         <section id="slideScatterVsHexbins" class="dark" data-background-image="images/darkBg.png"
-                 data-background-size="cover" data-background-position="top">
+                 data-background-size="cover" data-background-position="top" data-locator="2" data-locator-info="hexbins">
             <h1>scatterplot vs hexbins</h1>
             <div class="acenter">
                 <img src="images/hexbins.svg"/>
@@ -180,7 +169,7 @@ $('#foo')
         </section>
 
         <section id="slideHexbinsWhy" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="2" data-locator-info="hexbins">
             <h1>zalety <em>parkietażu</em> foremnego</h1>
             <h2>optymalnie wykorzystuje przesteń</h2>
             <h2>pozwala na większą gradację</h2>
@@ -188,13 +177,13 @@ $('#foo')
         </section>
 
         <section id="slideHexbinsExplanation" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="2" data-locator-info="hexbins">
             <h2>sasiadujące heksagony współdzielą <em>wszystkie boki</em>, nie tylko <em>wierzchołek</em></h2>
             <div class="acenter"><img src="images/hexbin-edges.jpg"/></div>
         </section>
 
         <section id="slideHexbinsSquares" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="2" data-locator-info="hexbins">
             <h2><em>łamią linie</em> powstałe przez punkty. Heksagony o <em>13%</em> efektywniej wykorzystują przestrzeń
                 niż kwadraty.</h2>
             <div class="acenter"><img src="images/hexbin-vs-squares.png"/></div>
@@ -202,14 +191,14 @@ $('#foo')
 
         <section id="slideLeaflet" data-background-image="images/doodles_bg.svg" data-background-size="cover"
                  data-background-position="top">
-            <section id="slideLeafletIntro">
+            <section id="slideLeafletIntro" data-locator="2" data-locator-info="leaflet.js">
                 <h1>leaflet.js</h1>
                 <h2>czyli alternatywa dla <em>google maps</em></h2>
                 <iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""
                         sandbox="allow-forms allow-scripts allow-popups allow-same-origin allow-pointer-lock"
                         data-src="//codepen.io/amortka/embed/mRzqoV/?height=400&amp;theme-id=light&amp;default-tab=result&amp;embed-version=2"></iframe>
             </section>
-            <section id="slideLeafletCustomLayer1">
+            <section id="slideLeafletCustomLayer1" data-locator="2" data-locator-info="leaflet.js">
                 <h1>leaflet: własna warstwa SVG</h1>
                 <pre><code data-noescape>
 
@@ -229,7 +218,7 @@ L.CustomLayer = L.Layer.extend({
 
 </code></pre>
             </section>
-            <section id="slideLeafletCustomLayer2">
+            <section id="slideLeafletCustomLayer2" data-locator="2" data-locator-info="leaflet.js">
                 <h1>leaflet: własna warstwa SVG</h1>
                 <pre><code data-noescape>
 map._initPathRoot();
@@ -248,7 +237,7 @@ selection.selectAll('dataPoint')
 
 </code></pre>
             </section>
-            <section id="slideLeafletCustomLayerReact">
+            <section id="slideLeafletCustomLayerReact" data-locator="2" data-locator-info="leaflet.js + react">
                 <h1>leaflet + <em>ReactJS</em></h1>
                 <pre><code data-noescape>
 
@@ -265,7 +254,7 @@ render() {
 
 </code></pre>
             </section>
-            <section id="slideLeafletCustomLayerReactComponentDidMount">
+            <section id="slideLeafletCustomLayerReactComponentDidMount" data-locator="2" data-locator-info="leaflet.js + react">
                 <h1>leaflet + <em>ReactJS</em>: map init</h1>
                 <pre><code data-noescape>
 componentDidMount() {
@@ -290,7 +279,7 @@ init() {
         </section>
 
 
-        <section id="slideTitle2-1" data-background-image="images/doodles_bg.svg" data-background-size="cover">
+        <section id="slideTitle2-1" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="2">
             <h1 class="center">madre podsumowanie</h1>
         </section>
 
@@ -299,13 +288,13 @@ init() {
         </section>
 
         <section id="dataSource" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="3">
             <h1>Źródła danych</h1>
             <h2><img src="images/data-public-api.svg"/>GTFS (csv)</h2>
             <h2><img src="images/data-public-webscrapp.svg"/>Web scrapping</h2>
         </section>
         <section id="dataGTFS-what" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="3" data-locator-info="gtfs">
             <h1>Skąd google zna rozkład mpk?</h1>
             side notes todo: dlaczego mowie o mpk
             <div class="acenter">
@@ -313,7 +302,7 @@ init() {
             </div>
         </section>
         <section id="dataGTFS" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="3" data-locator-info="gtfs">
             <h1>Format danych <em>GTFS</em></h1>
             <h2>General Transit Feed Specification</h2>
             <ul>
@@ -340,7 +329,7 @@ init() {
             </ul>
         </section>
         <section id="dataGTFSTips" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="3" data-locator-info="gtfs">
             <h1>GTFS <em>tips</em></h1>
             <h2>preprocessing
                 <small><em>stop_times.txt === ~32 MB</em></small>
@@ -350,41 +339,47 @@ init() {
                 <h2>transitfeeds.com</h2>
         </section>
         <section id="gtfsWroclaw" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                 data-background-position="top">
+                 data-background-position="top" data-locator="3" data-locator-info="gtfs">
             <h1>GTFS MPK Wrocław 03/03/2017</h1>
             <ul>
-                <li class="fragment"><strong>control_stops.txt:</strong> Unrecognised file in feed: control_stops.txt
-                </li>
+                <li class="fragment"><strong>control_stops.txt:</strong> Unrecognised file in feed: control_stops.txt</li>
                 <li class="fragment"><strong>route_types.txt:</strong> Unrecognised file in feed: route_types.txt</li>
                 <li class="fragment"><strong>routes.txt:</strong> Unrecognised column in routes.txt: route_type2_id</li>
-                <li class="fragment"><strong>routes.txt:</strong> Unrecognised column in routes.txt: valid_from</li>
-                <li class="fragment"><strong>routes.txt:</strong> Unrecognised column in routes.txt: valid_until</li>
-                <li class="fragment"><strong>trips.txt:</strong> Unrecognised column in trips.txt: brigade_id</li>
-                <li class="fragment"><strong>trips.txt:</strong> Unrecognised column in trips.txt: vehicle_id</li>
-                <li class="fragment"><strong>trips.txt:</strong> Unrecognised column in trips.txt: variant_id</li>
-                <li class="fragment"><strong>variants.txt:</strong> Unrecognised file in feed: variants.txt</li>
-                <li class="fragment"><strong>vehicle_types.txt:</strong> Unrecognised file in feed: vehicle_types.txt
-                </li>
+                <div class="fragment">
+                    <li><strong>routes.txt:</strong> Unrecognised column in routes.txt: valid_from</li>
+                    <li><strong>routes.txt:</strong> Unrecognised column in routes.txt: valid_until</li>
+                    <li><strong>trips.txt:</strong> Unrecognised column in trips.txt: brigade_id</li>
+                    <li><strong>trips.txt:</strong> Unrecognised column in trips.txt: vehicle_id</li>
+                    <li><strong>trips.txt:</strong> Unrecognised column in trips.txt: variant_id</li>
+                    <li><strong>variants.txt:</strong> Unrecognised file in feed: variants.txt</li>
+                    <li><strong>vehicle_types.txt:</strong> Unrecognised file in feed: vehicle_types.txt</li>
+                </div>
+
             </ul>
         </section>
         <section>
             <section id="dataWebScrapping" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                     data-background-position="top">
+                     data-background-position="top" data-locator="3" data-locator-info="web scrapping">
                 <h1>Web scrapping</h1>
                 <h2>to automatyczne lub półautomatyczne <em>pobieranie</em> i <em>przetwarzanie</em> zawartości stron
                     internetowych.</h2>
             </section>
-            <section id="dataWebScrappingVideo" data-background-image="images/doodles_bg.svg" data-background-size="cover"
-                     data-background-position="top">
+            <section id="dataWebScrappingVideo" data-background-image="images/doodles_bg.svg"
+                     data-background-size="cover"
+                     data-background-position="top" data-locator="3" data-locator-info="web scrapping">
                 <div class="acenter">
-                    <video src="images/video/4-dataVis-webscrapping.webm" controls autoplay></video>
+                    <!--<a href="https://www.youtube.com/watch?v=dtnWH59mPSE&feature=youtu.be" target="_blank">
+                        <img src="images/web-scrapping.PNG" />
+                    </a>-->
+                    <iframe width="90%" height="700" src="https://www.youtube.com/embed/dtnWH59mPSE?autoplay=1" frameborder="0" allowfullscreen></iframe>
                 </div>
             </section>
-            <section id="dataWebScrappingVideoFull" data-background-video="images/doodles_bg.svg" data-background-video-loop>
+            <section id="dataWebScrappingVideoFull" data-background-video="images/doodles_bg.svg"
+                     data-background-video-loop data-locator="3" data-locator-info="web scrapping">
             </section>
         </section>
         <section class="dark" id="eofPodsumowanie" data-background-image="images/bg-doodle.png"
-                 data-background-size="cover" data-background-position="top">
+                 data-background-size="cover" data-background-position="top" data-locator="4">
             <h1>Podsumowanie</h1>
             <h2 class="fragment">1. Wizualizacja ma kontekst</h2>
             <h2 class="fragment">2. D3 data([...], d => d.id)</h2>
@@ -455,22 +450,57 @@ init() {
     });
 
     Reveal.addEventListener('ready', function(event) {
-        // event.currentSlide, event.indexh, event.indexv
 
-        $('.slide-background').append('<div class="squares"><i></i><i></i><i></i></div>');
-        $('.slide-background').append('<div class="counter"><span class="counterInfo">1/5</span></div>');
+//        $('.slide-background').append('<div class="squares"><i></i><i></i><i></i></div>');
+//        $('.slide-background').append('<div class="counter"><span class="counterInfo">1/5</span></div>');
 
-        setCurrentInfo();
+        var parts = [
+            'wizualizacje',
+            'javascript',
+            'dane',
+            'podsumowanie'
+        ];
+
+        var locator = $(document.createElement('ul'));
+        locator.addClass('locator');
+
+        parts.forEach((part, idx) => {
+            var partEl = $(document.createElement('li'));
+            var spanEL  = $(document.createElement('span'));
+            var infoEl = $(document.createElement('i'));
+
+            spanEL.text((idx+1) + '. ' + part);
+            spanEL.append(infoEl);
+            partEl.append(spanEL);
+            locator.append(partEl);
+        });
+
+        $('.reveal').append(locator);
+
+        setLocator(event);
     });
 
     Reveal.addEventListener('slidechanged', function(event) {
-        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-        setCurrentInfo();
+        setLocator(event);
     });
 
-    function setCurrentInfo() {
-        $('.counterInfo').text(Reveal.getIndices().h+1 + '.' + Reveal.getIndices().v);
-//        $('.c-v').text(Reveal.getIndices().v);
+    function setLocator(event) {
+        if (event.currentSlide && event.currentSlide.dataset.locator) {
+
+            $('ul.locator').show();
+            $('ul.locator li').removeClass('current');
+            $('ul.locator li:nth-child(' + event.currentSlide.dataset.locator + ')').addClass('current');
+
+            if (event.currentSlide.dataset.locatorInfo) {
+                $('ul.locator li:nth-child(' + event.currentSlide.dataset.locator + ') i').text(': ' + event.currentSlide.dataset.locatorInfo);
+            } else {
+                $('ul.locator li:nth-child(' + event.currentSlide.dataset.locator + ') i').text('');
+            }
+
+        } else {
+            $('ul.locator').hide();
+            $('ul.locator li:nth-child(' + event.currentSlide.dataset.locator + ') i').text('');
+        }
     }
 
 </script>
