@@ -406,7 +406,7 @@ body {
 
 .reveal h2, .reveal p {
   padding-left: 100px;
-  width: 75%; }
+  width: 90%; }
 
 .reveal h2 small {
   vertical-align: middle; }
@@ -482,6 +482,9 @@ body {
   .reveal .acenter img {
     width: 80%; }
 
+.reveal .cred {
+  color: #e74c3c; }
+
 .reveal section.present:not(.abstract) em:before {
   animation: emSlideUp 0.2s 0.1s normal forwards ease-in-out; }
 
@@ -529,7 +532,7 @@ body {
   bottom: 1em; }
 
 .reveal #eofThanks .logo {
-  margin-top: 4em;
+  margin-top: 2em;
   width: 400px; }
 
 .reveal #slideAbout svg {

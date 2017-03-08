@@ -186,7 +186,7 @@ section.has-dark-background {
 
   h2, p {
     padding-left: 100px;
-    width: 75%;
+    width: 90%;
   }
 
   h2 small {
@@ -279,6 +279,10 @@ section.has-dark-background {
     }
   }
 
+  .cred {
+    color: #e74c3c;
+  }
+
   section.present:not(.abstract) {
     em:before {
       animation: emSlideUp 0.2s 0.1s normal forwards ease-in-out;
@@ -348,7 +352,7 @@ section.has-dark-background {
 
   #eofThanks {
     .logo {
-      margin-top: 4em;
+      margin-top: 2em;
       width: 400px;
     }
   }
