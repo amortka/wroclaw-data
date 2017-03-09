@@ -1,4 +1,5 @@
 @import '../node_modules/leaflet/dist/leaflet.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
 body,
 html {
@@ -7,8 +8,9 @@ html {
     margin: 0;
     display: flex;
     align-items: stretch;
-    justify-content: stretch;
+    justify-content: center;;
     overflow: hidden;
+    background: #343331;
 }
 
 #map-container {
@@ -23,12 +25,34 @@ html {
     position: absolute;
     width: 100vw;
     bottom: 0;
-    height: 200px;
+    height: 220px;
     margin: 2px;
     padding: 20px;
     background: -webkit-linear-gradient(180deg, rgb(79, 79, 79), rgb(36, 36, 36));
     background: linear-gradient(180deg, rgb(79, 79, 79), rgb(36, 36, 36));
     z-index: 1000;
+
+        h1, h2 {
+          font-family: 'Roboto Slab', serif;
+          color: #fff;
+          position: absolute;
+          left: 45%;
+        }
+
+        h1 {
+          bottom: 15px;
+          font-weight: 400;
+
+          em {
+            font-style: normal;
+            font-weight: 700;
+          }
+        }
+
+        h2 {
+          bottom: -15px;
+          font-weight: 400;
+        }
 
     &.open {
         display: block;

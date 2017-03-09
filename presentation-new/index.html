@@ -64,11 +64,11 @@
         <section id="slideTitle1" data-background-image="images/doodles_bg.svg" data-background-size="cover">
             <h1 class="center">1. Wizualizacje</h1>
         </section>
-        <section id="slideDemoEstates" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="1">
-            <h1>TODO: put demo here</h1>
+        <section id="slideDemoEstates" data-background-color="#343331" data-background-video="images/video/wiz1.webm"
+                 data-background-video-loop data-locator="1">
         </section>
-        <section id="slideDemoMpk" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="1">
-            <h1>TODO: put demo here</h1>
+        <section id="slideDemoMpk" data-background-color="#343331" data-background-video="images/video/wiz2-2.webm"
+                 data-background-video-loop data-locator="1">
         </section>
         <section id="slideDemoContext" data-background-image="images/doodles_bg.svg" data-background-size="cover" data-locator="1">
             <h1 class="center">Kontekst</h1>
@@ -456,7 +456,7 @@ init() {
 
     Reveal.addEventListener('ready', function(event) {
 
-//        $('.slide-background').append('<div class="squares"><i></i><i></i><i></i></div>');
+        // $('.slide-background').append('<div class="squares"><i></i><i></i><i></i></div>');
 //        $('.slide-background').append('<div class="counter"><span class="counterInfo">1/5</span></div>');
 
         var parts = [
@@ -504,7 +504,7 @@ init() {
 
         } else {
             $('ul.locator').hide();
-            $('ul.locator li:nth-child(' + event.currentSlide.dataset.locator + ') i').text('');
+            $('ul.locator li i').text('');
         }
     }
 

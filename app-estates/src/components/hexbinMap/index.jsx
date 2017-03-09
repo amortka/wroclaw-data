@@ -253,10 +253,14 @@ export default class Map extends React.Component {
             if (this.state.selected) {
                 selectHexbin.call(_self, this.state.selected, hexbinInfoSelectedGroup, hexbinMaxSize, scale, true); // eslint-disable-line
             }
-        }).addTo(map);
+        })//addTo(map);
 
         map.invalidateSize(true);
         this.setState({ map, tileLayer, overlayLayer });
+
+        setTimeout(() => {
+          overlayLayer.addTo(map)
+        }, 2500);
     }
 
     render() {

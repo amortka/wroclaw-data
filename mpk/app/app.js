@@ -47,7 +47,6 @@ function drawMap(data) {
 
     const overlay = L.d3SvgOverlay(function(selection, projection) {
 
-
         let linesUpdate = selection.selectAll('.line');
         let lineDetailUpdate = selection.selectAll('.line-detailed');
 
@@ -93,10 +92,14 @@ function drawMap(data) {
             .style('pointer-events', 'visiblePainted')
             .on('mouseover', function() {
                 selection.selectAll('.line')
+                    .transition()
+                    .duration(200)
                     .attr('opacity', 0.1);
 
                 d3.select(this)
-                    .attr('opacity', 0.8)
+                    .transition()
+                    .duration(200)
+                   .attr('opacity', 0.8)
                     .attr('stroke-width', 5 / projection.scale);
             })
             .on('mouseout', function() {
@@ -199,7 +202,11 @@ function drawMap(data) {
 function drawLineDetails(lineDetails, directions) {
 
     const containerEl =  d3.select('#line-details');
+    const nameEl = d3.select('#line-details h1 em');
+    const timeEl = d3.select('#line-details h2');
+
     containerEl.attr('class', 'open');
+    nameEl.text(lineDetails.name);
 
     const svg = d3.select('#line-details svg').empty() ? d3.select('#line-details').append('svg') : d3.select('#line-details svg');
     svg.selectAll('*').remove();
@@ -255,6 +262,19 @@ function drawLineDetails(lineDetails, directions) {
         legs[legs.length - 1].times.t2.time,
         legs[legs.length - 1].times.t3.time
     );
+
+
+    console.log('lineDetails', lineDetails);
+    console.log('directions', directions);
+
+    const timmings = {
+      table: formatMinutes(lineDetails.timeTable[0].found[lineDetails.timeTable[0].found.length - 1].time),
+      directions: formatMinutes(legs[legs.length - 1].duration.curr)
+    }
+
+    timeEl.text(`mpk: ${timmings.table},  ETA: ${timmings.directions}`);
+
+
 
     let width = svg.node().getBoundingClientRect().width * 0.9;
     let height = svg.node().getBoundingClientRect().height * 0.6;
